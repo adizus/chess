@@ -1,6 +1,8 @@
 #ifndef LOCATION
 #define LOCATION
 
+extern int objectCounter;
+
 class Location {
 	int row;
 	int column;

@@ -15,6 +15,10 @@
 
 using namespace std;
 
+Game::Game() {
+	objectCounter++;
+}
+
 int Game::getBoardWidth() {
 	return boardWidth;
 }
@@ -34,8 +38,14 @@ void Game::buildStandardBoard() {
 	vector < vector<ChessPiece*> > rows(boardWidth, temp);
 	board = rows;
 
-	blackPieces = new ChessPiece*[boardWidth * 2];
+	vector <ChessPiece*> pieces(boardWidth * 2, NULL);
+	whitePieces = blackPieces = pieces;
+
+
+	/*blackPieces =
+	objectCounter++;
 	whitePieces = new ChessPiece*[boardWidth * 2];
+	objectCounter++;*/
 
 	for (int i = 0; i < boardWidth; i++) {
 		board[1][i] = new Pawn("BP", true, 1, i);
@@ -50,18 +60,30 @@ void Game::buildStandardBoard() {
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Rook("WR", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
+			board[0][i+7] = new Rook("BR", true, 0, i+7);
+			blackPieces[i +7+ boardWidth] = board[0][i+7];
+			board[7][i+7] = new Rook("WR", false, 7, i+7);
+			whitePieces[i +7+ boardWidth] = board[7][i+7];
 			break;
 		case 1:
 			board[0][i] = new Knight("BN", true, 0, i);
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Knight("WN", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
+			board[0][i+5] = new Knight("BN", true, 0, i+5);
+			blackPieces[i + 5 + boardWidth] = board[0][i + 5];
+			board[7][i + 5] = new Knight("WN", false, 7, i + 5);
+			whitePieces[i + 5 + boardWidth] = board[7][i + 5];
 			break;
 		case 2:
 			board[0][i] = new Bishop("BB", true, 0, i);
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Bishop("WB", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
+			board[0][i+3] = new Bishop("BB", true, 0, i + 3);
+			blackPieces[i + 3 + boardWidth] = board[0][i + 3];
+			board[7][i + 3] = new Bishop("WB", false, 7, i + 3);
+			whitePieces[i + 3 + boardWidth] = board[7][i + 3];
 			break;
 		case 3:
 			board[0][i] = new Queen("BQ", true, 0, i);//make sure I didn't mix up king/queen places
@@ -215,7 +237,9 @@ void Game::translateUserInput(string input, Location**to, Location**from) {//fin
 		}
 	}
 	*from = new Location(beginRow, beginColumn);
+	objectCounter++;
 	*to = new Location(endRow, endColumn);
+	objectCounter++;
 }
 
 
@@ -299,19 +323,33 @@ void Game::turn() {
 				movingPiece = getPieceInLocation(from);
 		} while (!movingPiece);
 
+		/*
+		have allPossibleMoves
+		check if legal
+		copy board
+		execute move
+		gather moves for other color
+		if not check continue
+		gather moves for this color (after execute moves)
+		if not check continue
+		if check gather moves for other color
+		foreach move gather moves fot this color. if still check iterate, 
+		if not check return, finish move, other color turn.
+
+		*/
+
+
 		if (isPossibleMove(movingPiece, to, from)) {
-			if (movingPiece->isLegalMove(to, this))
+			if (movingPiece->isLegalMove(to, this))//or compare to allpossible moves
 				executeMove(movingPiece, to, from);
 			else
 				cout << "not legal move" << endl;
 		}
-		gatherAllPossibleMoves();
-		checkForCheck();
+		
+		gatherAllPossibleMoves(isWhiteTurn);//need to organize black check vs white
+		checkForCheck(isWhiteTurn);
 
-		//	checkEndGame();//mate, draw... maybe mate should be depended on check
-
-
-
+		//	checkEndGame();//mate, draw... probably mate should be depended on check
 
 	}
 }
@@ -320,8 +358,13 @@ void Game::gatherAllPossibleMoves(bool whiteMover) {
 	allPossibleMovesForNextTurn.clear();
 	for (int i = 0; i < piecesVector.size(); i++) {
 		piecesVector[i]->findPossibleMoves(this);
-		allPossibleMovesForNextTurn.insert(allPossibleMovesForNextTurn.end(), piecesVector[i]->getPossibleMovesVector.begin(), piecesVector[i]->getPossibleMovesVector.end());
-	}
+		for (int j = 0; j < piecesVector[i]->getPossibleMovesVector().size(); j++) {
+			Location* possibleMove = piecesVector[i]->getPossibleMovesVector()[j];//make sure it finishes the piece before it goes to the next row
+			allPossibleMovesForNextTurn.push_back(possibleMove);
+		}
+
+		//allPossibleMovesForNextTurn.insert(allPossibleMovesForNextTurn.end(), piecesVector[i]->getPossibleMovesVector().begin(), piecesVector[i]->getPossibleMovesVector().end());
+	}//there is a problem here. vector iterators incompatible. 
 }
 
 bool Game::checkForCheck(bool whiteMover) {
@@ -333,7 +376,7 @@ bool Game::checkForCheck(bool whiteMover) {
 }
 
 bool Game::checkForMate() {
-
+	return false;
 }
 
 

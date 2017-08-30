@@ -6,6 +6,7 @@
 Location::Location(int row, int column) {
 	this->row = row;
 	this->column = column;
+	objectCounter++;
 }
 
 int Location::getRow() {

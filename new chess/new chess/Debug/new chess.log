@@ -1,3 +1,7 @@
-﻿  queen.cpp
-  new chess.vcxproj -> C:\Users\user\source\repos\new chess\Debug\new chess.exe
-  new chess.vcxproj -> C:\Users\user\source\repos\new chess\Debug\new chess.pdb (Partial PDB)
+﻿  game.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(151): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(359): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(361): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(371): warning C4018: '<': signed/unsigned mismatch
+  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.exe
+  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.pdb (Partial PDB)

@@ -5,6 +5,7 @@
 #include <vector>
 #include "location.h"
 #include "game.h"
+extern int objectCounter;
 
 
 //board[row][column]

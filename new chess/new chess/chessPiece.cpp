@@ -6,6 +6,7 @@ ChessPiece::ChessPiece(string name,bool isBlack, int row,int column ) {
 	this->name = name;
 	this->row = row;
 	this->column = column;
+	objectCounter++;
 }
 
 string ChessPiece::getName() {
@@ -37,8 +38,11 @@ void ChessPiece::findPossibleMoves(Game * game) {
 	for (int i = 0; i < game->getBoardWidth(); i++) {
 		for (int j = 0; j < game->GetBoardHeight(); j++) {
 			Location * possibleMove = new Location(i, j);
-			if (isLegalMove(possibleMove,game))//make sure it gets to right object. should, because function is virtual
+			objectCounter++;
+			if (isLegalMove(possibleMove, game))//make sure it gets to right object. should, because function is virtual
 				possibleMoves.push_back(possibleMove);
+			else
+				delete possibleMove;
 		}
 	}
 }

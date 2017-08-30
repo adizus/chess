@@ -10,6 +10,7 @@
 class ChessPiece;
 class Location;
 using namespace std;
+extern int objectCounter;
 
 class Game {
 	bool isWhiteTurn = true;
@@ -29,7 +30,7 @@ class Game {
 
 
 public:
-
+	Game();
 	void play();
 	void turn();
 	void buildStandardBoard();

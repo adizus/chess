@@ -11,7 +11,8 @@
 class Queen :public ChessPiece {
 	string name;
 	bool isBlack;
-	string place;
+	int row;
+	int column;
 	string defaultStartingPlace;
 	vector <string> possibleMoves;
 
