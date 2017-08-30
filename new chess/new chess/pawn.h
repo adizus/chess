@@ -4,7 +4,11 @@
 #include "chessPiece.h"
 #include "location.h"
 #include <vector>
-
+    
+	
+	
+	
+	
 
 class Pawn :public ChessPiece {
 	string name;
