@@ -42,3 +42,8 @@ void ChessPiece::findPossibleMoves(Game * game) {
 		}
 	}
 }
+
+vector<Location*> ChessPiece::getPossibleMovesVector() {
+	return possibleMoves;
+}
+

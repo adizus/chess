@@ -34,5 +34,6 @@ public:
 	virtual int getRow();
 	virtual void setColumn(int);
 	virtual void setRow(int);
+	virtual vector<Location*> getPossibleMovesVector();
 };
 #endif 

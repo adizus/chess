@@ -305,15 +305,35 @@ void Game::turn() {
 			else
 				cout << "not legal move" << endl;
 		}
-		//for (int i = 0; i < blackPieces->length(); i++) {//for check
-		//	blackPieces[i]->findPossibleMoves(this);//go through the list i just made and check if kinglocation is there
-		//}
-		//
-		//checkForCheck()
+		gatherAllPossibleMoves();
+		checkForCheck();
+
 		//	checkEndGame();//mate, draw... maybe mate should be depended on check
 
 
+
+
 	}
+}
+void Game::gatherAllPossibleMoves(bool whiteMover) {
+	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
+	allPossibleMovesForNextTurn.clear();
+	for (int i = 0; i < piecesVector.size(); i++) {
+		piecesVector[i]->findPossibleMoves(this);
+		allPossibleMovesForNextTurn.insert(allPossibleMovesForNextTurn.end(), piecesVector[i]->getPossibleMovesVector.begin(), piecesVector[i]->getPossibleMovesVector.end());
+	}
+}
+
+bool Game::checkForCheck(bool whiteMover) {
+	for (int i = 0; i < allPossibleMovesForNextTurn.size(); i++) {
+		if (allPossibleMovesForNextTurn[i] == (whiteMover ? blackKingLocation : whiteKingLocation))
+			return true;
+	}
+	return false;
+}
+
+bool Game::checkForMate() {
+
 }
 
 
