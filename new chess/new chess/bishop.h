@@ -11,13 +11,10 @@ class Bishop :public ChessPiece {
 	bool isBlack;
 	int row;
 	int column;
-	string defaultStartingPlace;
-	vector <Location*> possibleMoves;
-
 public:
 	Bishop(string name, bool isBlack, int row, int column) :ChessPiece(name, isBlack, row, column) {}
 	bool isLegalMove(Location*, Game*);
-	Bishop() {}
+	ChessPiece* copy();
 	//void eat();
 	//void die();// call a destructor?
 	//void findPossibleMoves();

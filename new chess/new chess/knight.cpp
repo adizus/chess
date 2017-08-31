@@ -20,3 +20,10 @@ bool Knight::isLegalMove(Location* to,Game * game) {
 }
 
 
+ChessPiece* Knight::copy() {
+	return new Knight(this->name, this->isBlack, this->row, this->column);
+}
+
+
+
+

@@ -10,20 +10,18 @@ class Rook :public ChessPiece {
 	bool isBlack;
 	int row;
 	int column;
-	string defaultStartingPlace;
-	vector <string> possibleMoves;
 	bool isFirstMove = true;
 
 public:
 	Rook(string name, bool isBlack, int row, int column) :ChessPiece(name, isBlack, row, column) {}
-	Rook() {};
+	
 	bool isLegalMove(Location*, Game*);
 	bool getIsFirstMove();
 	void setIsFirstMove(bool);
+	ChessPiece* copy();
 	//void eat();
 	//void die();// call a destructor?
-	//void findPossibleMoves();
-
+	
 };
 #endif // !ROOK
 

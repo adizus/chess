@@ -30,4 +30,8 @@ void King::setIsFirstMove(bool isFirstMove) {
 	this->isFirstMove = isFirstMove;
 }
 
+ChessPiece* King::copy() {
+	return new King(this->name, this->isBlack, this->row, this->column);
+}
+
 

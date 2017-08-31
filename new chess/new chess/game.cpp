@@ -26,26 +26,16 @@ int Game::GetBoardHeight() {
 	return boardHeight;
 }
 
-//Location* Game::getLocation(int row, int column) {
-//	return board[row][column];
-//}
-
 
 void Game::buildStandardBoard() {
 
-	//cout <<"building "<< (isWhiteTurn ? " white turn! " : " black turn! ") << endl;
+	
 	vector <ChessPiece*> temp(boardHeight, NULL);
 	vector < vector<ChessPiece*> > rows(boardWidth, temp);
 	board = rows;
 
 	vector <ChessPiece*> pieces(boardWidth * 2, NULL);
 	whitePieces = blackPieces = pieces;
-
-
-	/*blackPieces =
-	objectCounter++;
-	whitePieces = new ChessPiece*[boardWidth * 2];
-	objectCounter++;*/
 
 	for (int i = 0; i < boardWidth; i++) {
 		board[1][i] = new Pawn("BP", true, 1, i);
@@ -145,8 +135,6 @@ bool Game::checkUserInput(string &input) {
 		cout << "input should have 4 characters";
 		return false;
 	}
-
-	//transform(input.begin(), input.end(), input.begin(), ::tolower);//same as next row.ask about syntax
 
 	for (int i = 0; i < input.size(); i++) { //maybe size_t instead of int.check why, and what is the difference
 		tolower(input[i]);
@@ -268,11 +256,6 @@ void Game::print() {
 	}
 }
 
-/*
-string operator+(string str, int i) {//make sure this works how I expect it to, and check if it is needed
-return str + (char*)i;
-}*/
-
 void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eating = false) {
 	
 	setSquareOnBoard(to, mover);
@@ -346,39 +329,33 @@ void Game::turn() {
 				cout << "not legal move" << endl;
 		}
 		
-		gatherAllPossibleMoves(isWhiteTurn);//need to organize black check vs white
+		
 		checkForCheck(isWhiteTurn);
 
 		//	checkEndGame();//mate, draw... probably mate should be depended on check
 
 	}
 }
-void Game::gatherAllPossibleMoves(bool whiteMover) {
-	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
-	allPossibleMovesForNextTurn.clear();
-	for (int i = 0; i < piecesVector.size(); i++) {
-		piecesVector[i]->findPossibleMoves(this);
-		for (int j = 0; j < piecesVector[i]->getPossibleMovesVector().size(); j++) {
-			Location* possibleMove = piecesVector[i]->getPossibleMovesVector()[j];//make sure it finishes the piece before it goes to the next row
-			allPossibleMovesForNextTurn.push_back(possibleMove);
-		}
 
-		//allPossibleMovesForNextTurn.insert(allPossibleMovesForNextTurn.end(), piecesVector[i]->getPossibleMovesVector().begin(), piecesVector[i]->getPossibleMovesVector().end());
-	}//there is a problem here. vector iterators incompatible. 
-}
+
+
+
 
 bool Game::checkForCheck(bool whiteMover) {
-	for (int i = 0; i < allPossibleMovesForNextTurn.size(); i++) {
-		if (allPossibleMovesForNextTurn[i] == (whiteMover ? blackKingLocation : whiteKingLocation))
+	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
+	Location* kingLocation = whiteMover ? blackKingLocation : whiteKingLocation;
+	for (int i = 0; i < piecesVector.size(); i++) {
+		if ((piecesVector[i])->isLegalMove(kingLocation, this)) {
 			return true;
+		}
 	}
 	return false;
 }
 
+
 bool Game::checkForMate() {
 	return false;
 }
-
 
 ChessPiece* Game::getPieceInLocation(Location* location) {
 	return board[location->getRow()][location->getColumn()];//now very needed. but how?
@@ -388,9 +365,29 @@ ChessPiece* Game::getPieceInLocation(int row, int column) {
 	return board[row][column];
 }
 
-
 void Game::play() {
 	buildStandardBoard();
 	turn();
 }
+
+Game::Game(Game* baseGame) {
+	this->isWhiteTurn = baseGame->isWhiteTurn;
+	this->gameOver = baseGame->gameOver;
+	
+	vector <ChessPiece*>temp(boardHeight, NULL);
+	vector< vector <ChessPiece*> > rows(boardWidth, temp);
+	this->board = rows;
+	for (int i = 0; i < boardHeight; i++) {
+		for (int j = 0; j < boardWidth; j++) {
+			if (baseGame->board[i][j])
+				this->board[i][j] = baseGame->board[i][j]->copy();
+		}
+	}
+	this->blackKingLocation = new Location(baseGame->blackKingLocation);
+	this->whiteKingLocation = new Location(baseGame->whiteKingLocation);
+
+}
+
+
+
 

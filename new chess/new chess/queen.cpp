@@ -17,5 +17,9 @@ bool Queen::isLegalMove(Location* to,Game*game) {
 	delete dummyBishop;
 	delete dummyRook;
 	return legalMove;
-
 }
+
+ChessPiece* Queen::copy() {
+	return new Queen(this->name, this->isBlack, this->row, this->column);
+}
+

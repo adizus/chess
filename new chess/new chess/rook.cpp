@@ -4,8 +4,6 @@
 #include "location.h"
 #include "game.h"
 
-
-
 bool Rook::getIsFirstMove() {
 	return isFirstMove;
 }
@@ -56,6 +54,13 @@ bool Rook::isLegalMove(Location* to,Game* game) {
 	}
 	return legalMove;
 }
+
+
+ChessPiece* Rook::copy() {
+	return new Rook(this->name, this->isBlack, this->row, this->column);
+}
+
+
 
 
 

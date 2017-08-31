@@ -25,16 +25,14 @@ class Game {
 	//ChessPiece** whitePieces;
 	Location* blackKingLocation;
 	Location* whiteKingLocation;
-	vector<Location*> allPossibleMovesForNextTurn;
-
-
-
 public:
 	Game();
+	Game(Game*);
 	void play();
 	void turn();
 	void buildStandardBoard();
 	bool checkForCheck(bool whiteMover);
+	bool checkForCheck();
 	void mate();
 	void switchTurn();
 	void castling();
@@ -49,7 +47,8 @@ public:
 	int getBoardWidth();
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
-	void gatherAllPossibleMoves(bool whiteMover);
 	bool checkForMate();
+
+	
 };
 #endif 

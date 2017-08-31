@@ -9,6 +9,7 @@ ChessPiece::ChessPiece(string name,bool isBlack, int row,int column ) {
 	objectCounter++;
 }
 
+
 string ChessPiece::getName() {
 	return name;
 }
@@ -32,22 +33,3 @@ void ChessPiece::setColumn(int column) {
 void ChessPiece::setRow(int row) {
 	this->row = row;
 }
-
-void ChessPiece::findPossibleMoves(Game * game) {
-	possibleMoves.clear();
-	for (int i = 0; i < game->getBoardWidth(); i++) {
-		for (int j = 0; j < game->GetBoardHeight(); j++) {
-			Location * possibleMove = new Location(i, j);
-			objectCounter++;
-			if (isLegalMove(possibleMove, game))//make sure it gets to right object. should, because function is virtual
-				possibleMoves.push_back(possibleMove);
-			else
-				delete possibleMove;
-		}
-	}
-}
-
-vector<Location*> ChessPiece::getPossibleMovesVector() {
-	return possibleMoves;
-}
-

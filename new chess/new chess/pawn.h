@@ -13,11 +13,8 @@
 class Pawn :public ChessPiece {
 	string name;
 	bool isBlack;
-	//Location* location;
 	int row;
 	int column;
-	string defaultStartingPlace;
-	vector <Location*> possibleMoves;
 	bool isFirstMove = true;
 
 public:
@@ -26,11 +23,11 @@ public:
 	bool getIsFirstMove();
 	void setIsFirstMove(bool);
 	void promotePawn();
+	ChessPiece* copy();
 
 	//void eat();
 	//void die();// call a destructor?
-	//void findPossibleMoves();
-
+	
 
 };
 #endif // !PAWN

@@ -14,7 +14,7 @@ void Pawn::setIsFirstMove(bool isFirstMove) {
 bool Pawn::isLegalMove(Location* to, Game* game) {//well I believe this function works but I don't think it is very readable
 	bool legalMove = false;
 
-
+	//need to add make sure nobody block first double move
 
 	if (this->getIsBlack()) {
 		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
@@ -61,5 +61,12 @@ void Pawn::promotePawn() {
 	}
 	*/
 }
+
+
+ChessPiece* Pawn::copy() {
+	return new Pawn(this->name, this->isBlack, this->row, this->column);
+}
+
+
 
 

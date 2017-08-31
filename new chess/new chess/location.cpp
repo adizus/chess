@@ -9,6 +9,11 @@ Location::Location(int row, int column) {
 	objectCounter++;
 }
 
+Location::Location(Location* baseLocation) {
+	this->row = baseLocation->row;
+	this->column = baseLocation->column;
+}
+
 int Location::getRow() {
 	return row;
 }
