@@ -260,7 +260,7 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	
 	setSquareOnBoard(to, mover);
 	setSquareOnBoard(from, NULL);
-	
+	//this is not polymorphic
 	if (mover->getName()[1] == 'P') {
 		dynamic_cast<Pawn*>(mover)->setIsFirstMove(false);
 	}
@@ -273,7 +273,7 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 		dynamic_cast<Rook*>(mover)->setIsFirstMove(false);
 	}
 
-	isWhiteTurn = !isWhiteTurn;
+	
 	/*if (eating) {
 	eat();
 	}*/
@@ -306,34 +306,35 @@ void Game::turn() {
 				movingPiece = getPieceInLocation(from);
 		} while (!movingPiece);
 
-		/*
-		have allPossibleMoves
-		check if legal
-		copy board
-		execute move
-		gather moves for other color
-		if not check continue
-		gather moves for this color (after execute moves)
-		if not check continue
-		if check gather moves for other color
-		foreach move gather moves fot this color. if still check iterate, 
-		if not check return, finish move, other color turn.
-
-		*/
-
-
 		if (isPossibleMove(movingPiece, to, from)) {
-			if (movingPiece->isLegalMove(to, this))//or compare to allpossible moves
-				executeMove(movingPiece, to, from);
+			if (movingPiece->isLegalMove(to, this)) {
+				Game* copyGame = new Game(this);
+				copyGame->executeMove(movingPiece, to, from);//make that the turn wont change
+				if (checkForCheck(isWhiteTurn)) {
+					delete copyGame;
+					cout << "that move puts your king in risk" << endl;
+				}
+				else {
+					copyGame->changeTurn();
+					if (copyGame->checkForCheck(isWhiteTurn)) {
+						cout << "check" << endl;
+						if (copyGame->checkForMate()) {
+							cout << "check-mate!" << endl;
+							this->gameOver = true;
+						}
+					}
+					else {
+						delete copyGame;
+						executeMove(movingPiece, to, from);
+						changeTurn();
+					}
+
+				}
+			}
 			else
 				cout << "not legal move" << endl;
 		}
-		
-		
-		checkForCheck(isWhiteTurn);
-
 		//	checkEndGame();//mate, draw... probably mate should be depended on check
-
 	}
 }
 
@@ -377,6 +378,7 @@ Game::Game(Game* baseGame) {
 	vector <ChessPiece*>temp(boardHeight, NULL);
 	vector< vector <ChessPiece*> > rows(boardWidth, temp);
 	this->board = rows;
+
 	for (int i = 0; i < boardHeight; i++) {
 		for (int j = 0; j < boardWidth; j++) {
 			if (baseGame->board[i][j])
@@ -386,6 +388,10 @@ Game::Game(Game* baseGame) {
 	this->blackKingLocation = new Location(baseGame->blackKingLocation);
 	this->whiteKingLocation = new Location(baseGame->whiteKingLocation);
 
+}
+
+void Game::changeTurn() {
+	isWhiteTurn = !isWhiteTurn;
 }
 
 

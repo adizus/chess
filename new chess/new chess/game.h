@@ -32,9 +32,6 @@ public:
 	void turn();
 	void buildStandardBoard();
 	bool checkForCheck(bool whiteMover);
-	bool checkForCheck();
-	void mate();
-	void switchTurn();
 	void castling();
 	bool isPossibleMove(ChessPiece*piece, Location*, Location *);
 	void print();
@@ -48,6 +45,7 @@ public:
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
 	bool checkForMate();
+	void changeTurn();
 
 	
 };
