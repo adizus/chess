@@ -44,6 +44,7 @@ public:
 	int getBoardWidth();
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
+	void setSquareOnBoard(int row, int column, ChessPiece*);
 	bool checkForMate();
 	void changeTurn();
 

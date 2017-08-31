@@ -5,8 +5,9 @@
 #include <iostream>
 #include "game.h"
 #include "chessPiece.h"
-#include "pawn.h"
 #include "location.h"
+#include "global.h"
+#include "pawn.h"
 #include "king.h"
 #include "queen.h"
 #include "rook.h"
@@ -114,13 +115,6 @@ bool Game::isPossibleMove(ChessPiece*piece, Location* to, Location* from) {
 
 }
 
-string trim(string input) {//can it be added to string itself?
-	int inputLength = input.size();
-	int begin = input.find_first_not_of(" ");
-	int end = input.find_last_not_of(" ");
-	string newInput = input.substr(begin, end - begin - 1);
-	return input;//maybe use reference
-}
 
 string Game::getUserInput() {
 	string input;
@@ -263,6 +257,7 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	//this is not polymorphic
 	if (mover->getName()[1] == 'P') {
 		dynamic_cast<Pawn*>(mover)->setIsFirstMove(false);
+		dynamic_cast<Pawn*>(mover)->promotePawn(this);
 	}
 
 	if (mover->getName()[1] == 'K') {
@@ -287,6 +282,16 @@ void Game::setSquareOnBoard(Location* location, ChessPiece* piece) {//
 	}
 	else
 		board[location->getRow()][location->getColumn()] = NULL;
+}
+
+void Game::setSquareOnBoard(int row, int column, ChessPiece* piece) {//
+	if (piece) {
+		board[row][column] = piece;
+		piece->setColumn(column);
+		piece->setRow(row);
+	}
+	else
+		board[row][column] = NULL;
 }
 
 
@@ -328,7 +333,6 @@ void Game::turn() {
 						executeMove(movingPiece, to, from);
 						changeTurn();
 					}
-
 				}
 			}
 			else

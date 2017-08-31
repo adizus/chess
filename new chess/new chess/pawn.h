@@ -22,7 +22,7 @@ public:
 	bool isLegalMove(Location*,Game*);
 	bool getIsFirstMove();
 	void setIsFirstMove(bool);
-	void promotePawn();
+	void promotePawn(Game*game);
 	ChessPiece* copy();
 
 	//void eat();

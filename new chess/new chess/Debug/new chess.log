@@ -1,5 +1,3 @@
-﻿  game.cpp
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(139): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(348): warning C4018: '<': signed/unsigned mismatch
+﻿  newchess.cpp
   new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.exe
   new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.pdb (Partial PDB)

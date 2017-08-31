@@ -149,6 +149,7 @@
     <ClInclude Include="bishop.h" />
     <ClInclude Include="chessPiece.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="king.h" />
     <ClInclude Include="knight.h" />
     <ClInclude Include="location.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="bishop.cpp" />
     <ClCompile Include="chessPiece.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="king.cpp" />
     <ClCompile Include="knight.cpp" />
     <ClCompile Include="location.cpp" />
