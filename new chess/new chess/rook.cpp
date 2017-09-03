@@ -57,7 +57,7 @@ bool Rook::isLegalMove(Location* to,Game* game) {
 
 
 ChessPiece* Rook::copy() {
-	return new Rook(this->name, this->isBlack, this->row, this->column);
+	return new Rook(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 
 

@@ -20,6 +20,6 @@ bool Queen::isLegalMove(Location* to,Game*game) {
 }
 
 ChessPiece* Queen::copy() {
-	return new Queen(this->name, this->isBlack, this->row, this->column);
+	return new Queen(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 

@@ -78,19 +78,19 @@ void Pawn::promotePawn(Game* game) {
 
 		} while (!getInput);
 
-		char nameChar = this->name[0];
+		char colorChar = this->getName()[0];
 		switch (input[0]) {
 		case 'q':
-			newPiece = new Queen(nameChar + "Q", this->isBlack, this->row, this->column);
+			newPiece = new Queen(colorChar + "Q", this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		case 'r':
-			newPiece = new Rook(nameChar + "R", this->isBlack, this->row, this->column);
+			newPiece = new Rook(colorChar + "R", this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		case 'b':
-			newPiece = new Bishop(nameChar + "B", this->isBlack, this->row, this->column);
+			newPiece = new Bishop(colorChar + "B", this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		case 'k':
-			newPiece = new Knight(nameChar + "N", this->isBlack, this->row, this->column);
+			newPiece = new Knight(colorChar + "N", this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		default:
 			cout << "never supposed to get here. promotion";
@@ -106,7 +106,7 @@ void Pawn::promotePawn(Game* game) {
 }
 
 ChessPiece* Pawn::copy() {
-	return new Pawn(this->name, this->isBlack, this->row, this->column);
+	return new Pawn(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 
 

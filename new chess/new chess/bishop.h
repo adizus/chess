@@ -7,10 +7,7 @@
 
 
 class Bishop :public ChessPiece {
-	string name;
-	bool isBlack;
-	int row;
-	int column;
+	
 public:
 	Bishop(string name, bool isBlack, int row, int column) :ChessPiece(name, isBlack, row, column) {}
 	bool isLegalMove(Location*, Game*);

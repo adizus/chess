@@ -21,7 +21,7 @@ bool Knight::isLegalMove(Location* to,Game * game) {
 
 
 ChessPiece* Knight::copy() {
-	return new Knight(this->name, this->isBlack, this->row, this->column);
+	return new Knight(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 
 

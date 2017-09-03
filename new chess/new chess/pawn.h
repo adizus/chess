@@ -11,10 +11,7 @@
 	
 
 class Pawn :public ChessPiece {
-	string name;
-	bool isBlack;
-	int row;
-	int column;
+	
 	bool isFirstMove = true;
 
 public:

@@ -65,6 +65,6 @@ bool Bishop::isLegalMove(Location* to, Game* game) {
 }
 
 ChessPiece* Bishop::copy() {
-	return new Bishop(this->name, this->isBlack, this->row, this->column);
+	return new Bishop(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 

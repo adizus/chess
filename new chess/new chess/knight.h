@@ -8,10 +8,6 @@
 
 
 class Knight :public ChessPiece {
-	string name;
-	bool isBlack;
-	int row;
-	int column;
 	
 public:
 	Knight(string name, bool isBlack,int row, int column) :ChessPiece(name, isBlack,row, column) {}

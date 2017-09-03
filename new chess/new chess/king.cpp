@@ -31,7 +31,7 @@ void King::setIsFirstMove(bool isFirstMove) {
 }
 
 ChessPiece* King::copy() {
-	return new King(this->name, this->isBlack, this->row, this->column);
+	return new King(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
 
 

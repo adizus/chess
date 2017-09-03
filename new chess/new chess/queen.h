@@ -9,10 +9,7 @@
 
 
 class Queen :public ChessPiece {
-	string name;
-	bool isBlack;
-	int row;
-	int column;
+	
 
 public:
 	Queen(string name, bool isBlack, int row, int column) :ChessPiece(name, isBlack, row, column) {}
