@@ -1,10 +1,162 @@
-﻿  rook.cpp
-  queen.cpp
-  pawn.cpp
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(73): warning C4018: '<': signed/unsigned mismatch
-  knight.cpp
-  king.cpp
-  bishop.cpp
+﻿  pawn.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\global.h(3): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\global.h(3): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(12): error C3254: 'Game': class contains explicit override 'getIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(12): error C2838: 'getIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(16): error C3254: 'Game': class contains explicit override 'setIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(16): error C2838: 'setIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(20): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(20): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(63): error C3254: 'Game': class contains explicit override 'checkAndExecutePawnPromotion' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(63): error C2838: 'checkAndExecutePawnPromotion': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(108): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(108): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  game.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\global.h(3): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\global.h(3): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(17): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(17): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(19): error C2535: 'Game::Game(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(30): note: see declaration of 'Game::Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(23): error C2535: 'int Game::getBoardWidth(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(45): note: see declaration of 'Game::getBoardWidth'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(26): error C2535: 'int Game::GetBoardHeight(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(46): note: see declaration of 'Game::GetBoardHeight'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(31): error C2535: 'void Game::buildStandardBoard(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(34): note: see declaration of 'Game::buildStandardBoard'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(98): error C2535: 'bool Game::isPossibleMove(ChessPiece *,Location *,Location *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(37): note: see declaration of 'Game::isPossibleMove'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(119): error C2535: 'std::string Game::getUserInput(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(42): note: see declaration of 'Game::getUserInput'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(127): error C2535: 'bool Game::checkUserInput(std::string &)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(43): note: see declaration of 'Game::checkUserInput'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(166): error C2535: 'void Game::translateUserInput(std::string,Location **,Location **)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(44): note: see declaration of 'Game::translateUserInput'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(228): error C2535: 'void Game::print(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(38): note: see declaration of 'Game::print'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(253): error C2535: 'void Game::executeMove(ChessPiece *,Location *,Location *,bool)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(41): note: see declaration of 'Game::executeMove'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(277): error C2535: 'void Game::setSquareOnBoard(Location *,ChessPiece *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(47): note: see declaration of 'Game::setSquareOnBoard'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(287): error C2535: 'void Game::setSquareOnBoard(int,int,ChessPiece *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(48): note: see declaration of 'Game::setSquareOnBoard'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(298): error C2535: 'void Game::turn(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(33): note: see declaration of 'Game::turn'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(341): error C2535: 'bool Game::checkForCheck(bool)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(35): note: see declaration of 'Game::checkForCheck'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(353): error C2535: 'bool Game::checkForMate(bool)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(49): note: see declaration of 'Game::checkForMate'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(369): error C2535: 'bool Game::tryAndMoveIfPossible(ChessPiece *,Location *,Location *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(55): note: see declaration of 'Game::tryAndMoveIfPossible'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(383): error C2535: 'ChessPiece *Game::getPieceInLocation(Location *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(39): note: see declaration of 'Game::getPieceInLocation'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(387): error C2535: 'ChessPiece *Game::getPieceInLocation(int,int)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(40): note: see declaration of 'Game::getPieceInLocation'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(391): error C2535: 'void Game::play(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(32): note: see declaration of 'Game::play'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(396): error C2535: 'Game::Game(Game *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(31): note: see declaration of 'Game::Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(415): error C2535: 'void Game::changeTurn(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(50): note: see declaration of 'Game::changeTurn'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(464): error C2535: 'void Game::setKingIsChecked(bool)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(52): note: see declaration of 'Game::setKingIsChecked'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(467): error C2535: 'bool Game::getKingIsChecked(void)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(53): note: see declaration of 'Game::getKingIsChecked'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(471): error C2535: 'bool Game::isSquareUnderAttack(Location *,bool)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(51): note: see declaration of 'Game::isSquareUnderAttack'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(481): error C2535: 'void Game::executeCastling(ChessPiece *,ChessPiece *,Location *,Location *,Location *)': member function already defined or declared
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(54): note: see declaration of 'Game::executeCastling'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
   Generating Code...
-  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.exe
-  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.pdb (Partial PDB)
+  Compiling...
+  bishop.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\bishop.cpp(8): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\bishop.cpp(8): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\bishop.cpp(67): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\bishop.cpp(67): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  chessPiece.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(4): error C3254: 'Game': class contains explicit override '{ctor}' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(4): error C2838: '{ctor}': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(13): error C3254: 'Game': class contains explicit override 'getName' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(13): error C2838: 'getName': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(16): error C3254: 'Game': class contains explicit override 'getIsBlack' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(16): error C2838: 'getIsBlack': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(20): error C3254: 'Game': class contains explicit override 'getColumn' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(20): error C2838: 'getColumn': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(24): error C3254: 'Game': class contains explicit override 'getRow' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(24): error C2838: 'getRow': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(29): error C3254: 'Game': class contains explicit override 'setColumn' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(29): error C2838: 'setColumn': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(33): error C3254: 'Game': class contains explicit override 'setRow' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.cpp(33): error C2838: 'setRow': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  king.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(7): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(7): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(25): error C3254: 'Game': class contains explicit override 'getIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(25): error C2838: 'getIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(29): error C3254: 'Game': class contains explicit override 'setIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(29): error C2838: 'setIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(33): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\king.cpp(33): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  knight.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\knight.cpp(6): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\knight.cpp(6): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\knight.cpp(23): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\knight.cpp(23): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  newchess.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  queen.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\queen.cpp(6): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\queen.cpp(6): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\queen.cpp(22): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\queen.cpp(22): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...
+  Compiling...
+  rook.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(8): error C2071: 'Game::objectCounter': illegal storage class
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2059: syntax error: 'using namespace'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\chesspiece.h(12): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(7): error C3254: 'Game': class contains explicit override 'getIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(7): error C2838: 'getIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(11): error C3254: 'Game': class contains explicit override 'setIsFirstMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(11): error C2838: 'setIsFirstMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(15): error C3254: 'Game': class contains explicit override 'isLegalMove' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(15): error C2838: 'isLegalMove': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(59): error C3254: 'Game': class contains explicit override 'copy' but does not derive from an interface that contains the function declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\rook.cpp(59): error C2838: 'copy': illegal qualified name in member declaration
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.h(15): fatal error C1075: the left brace '{' was unmatched at the end of the file
+  Generating Code...

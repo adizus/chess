@@ -60,8 +60,8 @@ bool Pawn::isLegalMove(Location* to, Game* game) {//well I believe this function
 	return legalMove;
 }
 
-void Pawn::promotePawn(Game* game) {
-	bool getInput=false;
+void Pawn::checkAndExecutePawnPromotion(Game* game) {
+	bool validInput=false;
 	string input;
 	ChessPiece* newPiece=NULL;
 	if (this->getRow() == game->GetBoardHeight() || this->getRow() == 0) {
@@ -74,9 +74,9 @@ void Pawn::promotePawn(Game* game) {
 				tolower(input[i]);
 			}
 			if (input == "queen" || input == "knight" || input == "rook" || input == "bishop")
-				getInput = true;
+				validInput = true;
 
-		} while (!getInput);
+		} while (!validInput);
 
 		char colorChar = this->getName()[0];
 		switch (input[0]) {
@@ -98,7 +98,7 @@ void Pawn::promotePawn(Game* game) {
 		if (newPiece) {
 			game->setSquareOnBoard(this->getRow(), this->getColumn(), newPiece);
 		
-			delete this;//will this work .commiting suicide
+			//delete this;//will this work .commiting suicide//I think it will work now because i deleted the copy. should not have mattered because it was a copy
 
 		}
 		

@@ -30,7 +30,7 @@ int Game::GetBoardHeight() {
 
 void Game::buildStandardBoard() {
 
-	
+
 	vector <ChessPiece*> temp(boardHeight, NULL);
 	vector < vector<ChessPiece*> > rows(boardWidth, temp);
 	board = rows;
@@ -39,10 +39,10 @@ void Game::buildStandardBoard() {
 	whitePieces = blackPieces = pieces;
 
 	for (int i = 0; i < boardWidth; i++) {
-		board[1][i] = new Pawn("BP", true, 1, i);
+		board[6][i] = new Pawn("BP", true, 6, i);
 		blackPieces[i] = board[1][i];
 
-		board[6][i] = new Pawn("WP", false, 6, i);
+		board[1][i] = new Pawn("WP", false, 1, i);
 		whitePieces[i] = board[6][i];
 
 		switch (i) {//this is hard coded
@@ -51,17 +51,17 @@ void Game::buildStandardBoard() {
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Rook("WR", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
-			board[0][i+7] = new Rook("BR", true, 0, i+7);
-			blackPieces[i +7+ boardWidth] = board[0][i+7];
-			board[7][i+7] = new Rook("WR", false, 7, i+7);
-			whitePieces[i +7+ boardWidth] = board[7][i+7];
+			board[0][i + 7] = new Rook("BR", true, 0, i + 7);
+			blackPieces[i + 7 + boardWidth] = board[0][i + 7];
+			board[7][i + 7] = new Rook("WR", false, 7, i + 7);
+			whitePieces[i + 7 + boardWidth] = board[7][i + 7];
 			break;
 		case 1:
 			board[0][i] = new Knight("BN", true, 0, i);
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Knight("WN", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
-			board[0][i+5] = new Knight("BN", true, 0, i+5);
+			board[0][i + 5] = new Knight("BN", true, 0, i + 5);
 			blackPieces[i + 5 + boardWidth] = board[0][i + 5];
 			board[7][i + 5] = new Knight("WN", false, 7, i + 5);
 			whitePieces[i + 5 + boardWidth] = board[7][i + 5];
@@ -71,7 +71,7 @@ void Game::buildStandardBoard() {
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Bishop("WB", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
-			board[0][i+3] = new Bishop("BB", true, 0, i + 3);
+			board[0][i + 3] = new Bishop("BB", true, 0, i + 3);
 			blackPieces[i + 3 + boardWidth] = board[0][i + 3];
 			board[7][i + 3] = new Bishop("WB", false, 7, i + 3);
 			whitePieces[i + 3 + boardWidth] = board[7][i + 3];
@@ -257,14 +257,14 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	//this is not polymorphic
 	if (mover->getName()[1] == 'P') {
 		dynamic_cast<Pawn*>(mover)->setIsFirstMove(false);
-		dynamic_cast<Pawn*>(mover)->promotePawn(this);
+		dynamic_cast<Pawn*>(mover)->checkAndExecutePawnPromotion(this);
 	}
 
-	if (mover->getName()[1] == 'K') {
+	else if (mover->getName()[1] == 'K') {
 		dynamic_cast<King*>(mover)->setIsFirstMove(false);
 	}
 
-	if (mover->getName()[1] == 'R') {
+	else if (mover->getName()[1] == 'R') {
 		dynamic_cast<Rook*>(mover)->setIsFirstMove(false);
 	}
 
@@ -311,36 +311,28 @@ void Game::turn() {
 				movingPiece = getPieceInLocation(from);
 		} while (!movingPiece);
 
-		if (isPossibleMove(movingPiece, to, from)) {
-			if (movingPiece->isLegalMove(to, this)) {
-				Game* copyGame = new Game(this);
-				copyGame->executeMove(movingPiece, to, from);//make that the turn wont change
-				if (checkForCheck(isWhiteTurn)) {
-					delete copyGame;
-					cout << "that move puts your king in risk" << endl;
-				}
-				else {
-					copyGame->changeTurn();
-					if (copyGame->checkForCheck(isWhiteTurn)) {
-						cout << "check" << endl;
-						if (copyGame->checkForMate()) {
-							cout << "check-mate!" << endl;
-							this->gameOver = true;
-						}
-					}
-					else {
-						delete copyGame;
-						executeMove(movingPiece, to, from);
-						changeTurn();
-					}
+		bool moved = tryAndMoveIfPossible(movingPiece, to, from);
+		if (!moved)cout << "that move puts your king in risk" << endl;
+		else {
+			changeTurn();
+			if (checkForCheck(isWhiteTurn)) {
+				cout << "check" << endl;
+				if (checkForMate()) {
+					cout << "check-mate!" << endl;
+					this->gameOver = true;
 				}
 			}
+
+			//else if (castling) {
+			//}
 			else
 				cout << "not legal move" << endl;
 		}
 		//	checkEndGame();//mate, draw... probably mate should be depended on check
 	}
 }
+
+
 
 
 
@@ -358,7 +350,33 @@ bool Game::checkForCheck(bool whiteMover) {
 }
 
 
-bool Game::checkForMate() {
+bool Game::checkForMate(bool whiteMover) {
+	Game * copyGame = new Game(this);
+	bool underAttack = true;
+	vector<ChessPiece*> piecesVector = whiteMover ? copyGame->whitePieces : copyGame->blackPieces;
+	for(int p = 0; p<piecesVector.size();p++){
+		for (int i = 0; i < boardWidth; i++) {
+			for (int j = 0; j < boardHeight; j++) {
+				piecesVector[p]->move(new Location(i, j),copyGame);
+					if (!copyGame->kingIsChecked)
+						return false;
+			}
+		}
+	}
+	return false;
+}
+
+bool Game::tryAndMoveIfPossible(ChessPiece*movingPiece, Location*to, Location*from) {
+	if (isPossibleMove(movingPiece, to, from)) {
+		if (movingPiece->isLegalMove(to, this)) {
+			if(!checkForCheck( isWhiteTurn)) {//need to copyGame
+				executeMove(movingPiece, to, from);
+				return true;
+			}
+		}
+		else
+			checkAndExecuteIfCastling(to, from);
+	}
 	return false;
 }
 
@@ -378,7 +396,7 @@ void Game::play() {
 Game::Game(Game* baseGame) {
 	this->isWhiteTurn = baseGame->isWhiteTurn;
 	this->gameOver = baseGame->gameOver;
-	
+
 	vector <ChessPiece*>temp(boardHeight, NULL);
 	vector< vector <ChessPiece*> > rows(boardWidth, temp);
 	this->board = rows;
@@ -397,6 +415,81 @@ Game::Game(Game* baseGame) {
 void Game::changeTurn() {
 	isWhiteTurn = !isWhiteTurn;
 }
+
+void Game::checkAndExecuteIfCastling(Location *to, Location*from) {
+
+	if (isWhiteTurn && from == whiteKingLocation && (*to == Location(7, 2) || to == Location(7, 6)) ||
+		!isWhiteTurn && from == blackKingLocation && (to == Location(0, 2) || to == Location(0, 6))) {
+
+		King * king = (King*)getPieceInLocation(from);
+		Rook*rook;
+		Location *rookDestination;
+		Location * squareRookHasToMoveThrough = NULL;
+
+		if (isWhiteTurn) {
+			if (to == Location(7, 2)) {
+				rook = (Rook*)getPieceInLocation(7, 0);
+				rookDestination = new Location(7, 3);
+				squareRookHasToMoveThrough = new Location(7, 1);
+			}
+			else {
+				rook = (Rook*)getPieceInLocation(7, 7);
+				rookDestination = new Location(7, 5);
+			}
+		}
+		else {
+			if (to == Location(0, 2)) {
+				rook = (Rook*)getPieceInLocation(0, 0);
+				rookDestination = new Location(0, 3);
+				squareRookHasToMoveThrough = new Location(0, 1);
+			}
+			else {
+				rook = (Rook*)getPieceInLocation(0, 7);
+				rookDestination = new Location(0, 5);
+			}
+		}
+		if (king->getIsFirstMove() && rook->getIsFirstMove()) {
+			if (squareRookHasToMoveThrough != NULL && getPieceInLocation(squareRookHasToMoveThrough) == NULL)//will thius break
+				if (getPieceInLocation(rookDestination) == NULL)
+					if (!kingIsChecked) 
+						if (isSquareUnderAttack(rookDestination, !isWhiteTurn))
+							executeCastling(king, rook, to, from, rookDestination);
+					
+		}
+	}
+}
+
+
+
+void Game::setKingIsChecked(bool kingIsChecked) {
+	this->kingIsChecked = kingIsChecked;
+}
+bool Game::getKingIsChecked() {
+	return kingIsChecked;
+}
+
+bool Game::isSquareUnderAttack(Location* location, bool whiteMover) {
+	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
+	for (int i = 0; i < piecesVector.size(); i++) {
+		if ((piecesVector[i])->isLegalMove(location, this)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Game::executeCastling(ChessPiece*king,ChessPiece*rook,Location *to,Location*from, Location* rooksDestination) {
+	int rookFromRow = rook->getRow();
+	int rookFromColumn = rook->getColumn();
+	
+	setSquareOnBoard(to, king);
+	setSquareOnBoard(rooksDestination, rook);
+	setSquareOnBoard(from, NULL);
+	setSquareOnBoard(rookFromRow,rookFromColumn, NULL);
+}
+
+
+
 
 
 

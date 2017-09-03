@@ -25,6 +25,7 @@ class Game {
 	//ChessPiece** whitePieces;
 	Location* blackKingLocation;
 	Location* whiteKingLocation;
+	bool kingIsChecked;
 public:
 	Game();
 	Game(Game*);
@@ -32,7 +33,7 @@ public:
 	void turn();
 	void buildStandardBoard();
 	bool checkForCheck(bool whiteMover);
-	void castling();
+	void checkAndExecuteIfCastling(string,Location*, Location*);
 	bool isPossibleMove(ChessPiece*piece, Location*, Location *);
 	void print();
 	ChessPiece* getPieceInLocation(Location*);
@@ -45,9 +46,13 @@ public:
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
 	void setSquareOnBoard(int row, int column, ChessPiece*);
-	bool checkForMate();
+	bool checkForMate(bool);
 	void changeTurn();
-
+	bool isSquareUnderAttack(Location *,bool);
+	void setKingIsChecked(bool);
+	bool getKingIsChecked();
+	void executeCastling(ChessPiece*, ChessPiece*, Location*, Location*, Location*);
+	bool tryAndMoveIfPossible(ChessPiece*movingPiece, Location*to, Location*from) {
 	
 };
 #endif 
