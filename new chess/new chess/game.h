@@ -33,7 +33,7 @@ public:
 	void turn();
 	void buildStandardBoard();
 	bool checkForCheck(bool whiteMover);
-	void checkAndExecuteIfCastling(string,Location*, Location*);
+	bool checkAndExecuteIfCastling(Location*, Location*);
 	bool isPossibleMove(ChessPiece*piece, Location*, Location *);
 	void print();
 	ChessPiece* getPieceInLocation(Location*);
@@ -46,13 +46,10 @@ public:
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
 	void setSquareOnBoard(int row, int column, ChessPiece*);
-	bool checkForMate(bool);
+	bool checkForMate();
 	void changeTurn();
-	bool isSquareUnderAttack(Location *,bool);
-	void setKingIsChecked(bool);
-	bool getKingIsChecked();
+	bool isSquareUnderAttack(Location*, bool);
 	void executeCastling(ChessPiece*, ChessPiece*, Location*, Location*, Location*);
-	bool tryAndMoveIfPossible(ChessPiece*movingPiece, Location*to, Location*from) {
-	
+	void setKingLocation(ChessPiece*);
 };
 #endif 
