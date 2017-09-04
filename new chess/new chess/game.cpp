@@ -315,7 +315,8 @@ void Game::turn() {
 		if (isPossibleMove(movingPiece, to, from)) {
 			if (movingPiece->isLegalMove(to, this)) {
 				Game* copyGame = new Game(this);
-				copyGame->executeMove(movingPiece, to, from);
+				ChessPiece* copyMover = copyGame->getPieceInLocation(from);
+				copyGame->executeMove(copyMover, to, from);
 				if (copyGame->checkForCheck(!isWhiteTurn)) {
 					delete copyGame;
 					cout << "that move puts your king in risk" << endl;
@@ -470,8 +471,7 @@ void Game::changeTurn() {
 }
 
 void Game::setKingLocation(ChessPiece*king) {
-	Location *KingLocation = king->getIsBlack() ? blackKingLocation : whiteKingLocation;
-	KingLocation = new Location(king->getRow(), king->getColumn());//should it be a new location or just another pointer
+	(king->getIsBlack() ? blackKingLocation : whiteKingLocation) = new Location(king->getRow(), king->getColumn());
 }
 
 
