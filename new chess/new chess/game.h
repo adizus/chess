@@ -26,6 +26,7 @@ class Game {
 	Location* blackKingLocation;
 	Location* whiteKingLocation;
 	bool kingIsChecked;
+	int movesSinceLastPawnMovementOrLastEating = 0;
 public:
 	Game();
 	Game(Game*);
@@ -51,5 +52,7 @@ public:
 	bool isSquareUnderAttack(Location*, bool);
 	void executeCastling(ChessPiece*, ChessPiece*, Location*, Location*, Location*);
 	void setKingLocation(ChessPiece*);
+	void eat(ChessPiece*);
+	void endGame();
 };
 #endif 
