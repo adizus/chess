@@ -325,7 +325,7 @@ void Game::turn() {
 					copyGame->changeTurn();
 					if (copyGame->checkForCheck(isWhiteTurn)) {
 						cout << "check" << endl;
-						if (copyGame->checkForMate()) {
+						if (copyGame->checkForMate(isWhiteTurn)) {
 							cout << "check-mate!" << endl;
 							this->gameOver = true;
 						}
@@ -418,15 +418,35 @@ bool Game::checkForCheck(bool whiteMover) {
 	Location* kingLocation = whiteMover ? blackKingLocation : whiteKingLocation;
 	for (int i = 0; i < piecesVector.size(); i++) {
 		if ((piecesVector[i])->isLegalMove(kingLocation, this)) {
+			kingIsChecked = true;
 			return true;
 		}
 	}
+	kingIsChecked = false;
 	return false;
 }
 
 
-bool Game::checkForMate() {
-	return false;
+bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts everything on the way
+	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
+	for (int p = 0; p < piecesVector.size(); p++) {//for each piece I will go to each spot and then check if there is a check()
+		for (int i = 0; i < boardWidth; i++) {
+			for (int j = 0; j < boardHeight; j++) {
+				ChessPiece * mover = piecesVector[p];
+				Location* to = new Location(i, j);
+				Location * from = new Location(mover->getRow(), mover->getColumn());
+
+				if (isPossibleMove(mover, to, from)) {
+					if (piecesVector[p]->isLegalMove(to, this)) {
+						executeMove(mover, to, from);
+						if (!checkForCheck(whiteMover))
+							return false;
+					}
+				}
+			}
+		}
+	}
+	return true;
 }
 
 ChessPiece* Game::getPieceInLocation(Location* location) {

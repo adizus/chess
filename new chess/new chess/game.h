@@ -46,7 +46,7 @@ public:
 	int GetBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
 	void setSquareOnBoard(int row, int column, ChessPiece*);
-	bool checkForMate();
+	bool checkForMate(bool);
 	void changeTurn();
 	bool isSquareUnderAttack(Location*, bool);
 	void executeCastling(ChessPiece*, ChessPiece*, Location*, Location*, Location*);
