@@ -21,8 +21,8 @@ int Location::getColumn() {
 	return column;
 }
 
-bool Location::operator==(Location* other) {
-	if (this->getRow() == other->getRow() && this->getColumn() == other->getColumn())
+bool Location::operator==(Location& other) {
+	if (this->getRow() == other.row && this->getColumn() == other.column)
 		return true;
 	else
 		return false;

@@ -1,7 +1,6 @@
 #ifndef GAME
 #define GAME
 
-
 #include <string>
 #include <vector>
 #include "chessPiece.h"
@@ -46,7 +45,7 @@ public:
 	bool checkUserInput(string &input);
 	void translateUserInput(string input, Location**, Location**); //findPlaceOnBoard
 	int getBoardWidth();
-	int GetBoardHeight();
+	int getBoardHeight();
 	void setSquareOnBoard(Location*, ChessPiece*);
 	void setSquareOnBoard(int row, int column, ChessPiece*);
 	bool checkForMate(bool);

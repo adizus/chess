@@ -1,8 +1,8 @@
 ﻿  game.cpp
 c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(132): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(375): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(400): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(419): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(510): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(379): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(404): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(420): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(515): warning C4018: '<': signed/unsigned mismatch
   new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.exe
   new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.pdb (Partial PDB)

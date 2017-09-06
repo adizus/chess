@@ -23,7 +23,7 @@ Game::Game() {
 int Game::getBoardWidth() {
 	return boardWidth;
 }
-int Game::GetBoardHeight() {
+int Game::getBoardHeight() {
 	return boardHeight;
 }
 
@@ -326,9 +326,12 @@ void Game::turn() {
 }
 
 bool Game::checkAndExecuteIfCastling(Location *to, Location*from) {
-
-	if (isWhiteTurn && from == whiteKingLocation && (to == new Location(7, 2) || to == new Location(7, 6)) ||//this may be very problematic. memoryleak
-		!isWhiteTurn && from == blackKingLocation && (to == new Location(0, 2) || to == new Location(0, 6))) {//or overload operator
+	Location* whiteOption1 = new Location(7, 2);
+	Location* whiteOption2 = new Location(7, 6);
+	Location* blackOption1 = new Location(0, 2);
+	Location* blackOption2 = new Location(0, 6);
+	if (isWhiteTurn && *from == *whiteKingLocation && (*to == *whiteOption1 || *to == *whiteOption2) ||
+		!isWhiteTurn && *from == *blackKingLocation && (*to == *blackOption1 || *to == *blackOption2)) {
 
 		King * king = (King*)getPieceInLocation(from);
 		Rook*rook;
@@ -358,10 +361,10 @@ bool Game::checkAndExecuteIfCastling(Location *to, Location*from) {
 			}
 		}
 		if (king->getIsFirstMove() && rook->getIsFirstMove()) {
-			if (squareRookHasToMoveThrough != NULL && getPieceInLocation(squareRookHasToMoveThrough) == NULL)//will this break
+			if (squareRookHasToMoveThrough == NULL || getPieceInLocation(squareRookHasToMoveThrough) == NULL)//will this break
 				if (getPieceInLocation(rookDestination) == NULL)
 					if (!kingIsChecked)
-						if (isSquareUnderAttack(rookDestination, !isWhiteTurn)) {
+						if (!isSquareUnderAttack(rookDestination, !isWhiteTurn)) {
 							executeCastling(king, rook, to, from, rookDestination);
 							return true;
 						}
@@ -370,6 +373,7 @@ bool Game::checkAndExecuteIfCastling(Location *to, Location*from) {
 	}
 	return false;
 }
+
 bool Game::isSquareUnderAttack(Location* location, bool whiteMover) {
 	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
 	for (int i = 0; i < piecesVector.size(); i++) {
@@ -397,17 +401,14 @@ void Game::executeCastling(ChessPiece*king, ChessPiece*rook, Location *to, Locat
 bool Game::checkForCheck(bool whiteMover) {
 	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
 	Location* kingLocation = whiteMover ? blackKingLocation : whiteKingLocation;
-for (int i = 0; i < piecesVector.size(); i++) {
-	if (piecesVector[i]) {
-		if ((piecesVector[i])->isLegalMove(kingLocation, this)) {
-			cout << "check" << endl;
-			kingIsChecked = true;
-			return true;
+	for (int i = 0; i < piecesVector.size(); i++) {
+		if (piecesVector[i]) {
+			if ((piecesVector[i])->isLegalMove(kingLocation, this)) {
+				return true;
+			}
 		}
 	}
-}
-kingIsChecked = false;
-return false;
+	return false;
 }
 
 
@@ -435,12 +436,15 @@ bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts
 						copyGame->changeTurn();
 						if (!checkForCheck(whiteMover)) {
 							delete copyGame;
+							copyGame = NULL;
 							delete to;
 							delete from;
 							return false;
 						}
-						else
+						else {
 							delete copyGame;
+							copyGame = NULL;
+						}
 					}
 				}
 				delete to;
@@ -451,6 +455,7 @@ bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts
 	gameOver = true;
 	return true;
 }
+
 
 
 ChessPiece* Game::getPieceInLocation(Location* location) {
@@ -570,10 +575,32 @@ string Game::checkMoveByCopying(Location * to, Location * from) {
 }
 
 void Game::afterMove() {
+	bool noPossibleMoves = false;
+	if (checkForCheck(isWhiteTurn)) {
+		kingIsChecked = true;
+	}
+	else
+		kingIsChecked = false;
+	if (checkForMate(isWhiteTurn)) {
+		noPossibleMoves = true;
+	}
+	if (noPossibleMoves && kingIsChecked) {
+		cout << "check-mate!" << endl;
+		gameOver = true;
+	}
+	if (noPossibleMoves && !kingIsChecked) {
+		cout << "stale mate" << endl;
+		gameOver = true;
+	}
+	if (!noPossibleMoves&&kingIsChecked)
+		cout << "check!" << endl;
+	
 	changeTurn();
-	checkForCheck(isWhiteTurn);
-	checkForMate(isWhiteTurn);
 	movesSinceLastPawnMovementOrLastEating++;
+	if (movesSinceLastPawnMovementOrLastEating >= 50) {
+		cout << "50 moves rule" << endl;
+		gameOver = true;
+	}
 	compareAndSaveLastBoard();
 }
 

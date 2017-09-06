@@ -64,7 +64,7 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 	bool validInput=false;
 	string input;
 	ChessPiece* newPiece=NULL;
-	if (this->getRow() == game->GetBoardHeight() || this->getRow() == 0) {
+	if (this->getRow() == game->getBoardHeight() || this->getRow() == 0) {
 		do {
 			cout << "please choose a promotion: queen, knight, rook or bishop" << endl;
 			cin >> input;
