@@ -27,6 +27,8 @@ class Game {
 	Location* whiteKingLocation;
 	bool kingIsChecked;
 	int movesSinceLastPawnMovementOrLastEating = 0;
+	vector <vector<ChessPiece*> > lastBoard;
+	bool twoBoardRepitition=false;
 public:
 	Game();
 	Game(Game*);
@@ -35,7 +37,7 @@ public:
 	void buildStandardBoard();
 	bool checkForCheck(bool whiteMover);
 	bool checkAndExecuteIfCastling(Location*, Location*);
-	bool isPossibleMove(ChessPiece*piece, Location*, Location *);
+	string isPossibleMove(ChessPiece*piece, Location*, Location *);
 	void print();
 	ChessPiece* getPieceInLocation(Location*);
 	ChessPiece* getPieceInLocation(int row, int column);
@@ -54,5 +56,11 @@ public:
 	void setKingLocation(ChessPiece*);
 	void eat(ChessPiece*);
 	void endGame();
+	string checkMove(Location*, Location*);
+	string checkMoveByCopying(Location*,Location*);
+	void afterMove();
+	void compareAndSaveLastBoard();
+	bool boardsAreIdentical(vector < vector<ChessPiece*> >, vector < vector<ChessPiece*> >);
+	vector < vector<ChessPiece*> > copyBoard();
 };
 #endif 

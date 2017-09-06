@@ -95,23 +95,22 @@ void Game::buildStandardBoard() {
 }
 
 
-bool Game::isPossibleMove(ChessPiece*piece, Location* to, Location* from) {
+string Game::isPossibleMove(ChessPiece*piece, Location* to, Location* from) {
+	string message = "";
 	bool legalMove = true;
 	if (!getPieceInLocation(from)) {
-		cout << "there is no piece in that square" << endl;
-		return false;
+		message ="there is no piece in that square";
 	}
 	if (getPieceInLocation(from)->getIsBlack() && isWhiteTurn || !getPieceInLocation(from)->getIsBlack() && !isWhiteTurn) {
-		cout << "it is not your turn" << endl;
-		return false;
+		message = "it is not your turn";
+		
 	}
 	if (getPieceInLocation(to)) {
 		if (getPieceInLocation(to)->getIsBlack() == piece->getIsBlack()) {//is endPlace occupied by a teammate
-			cout << "you can't eat a team mate" << endl;
-			return false;
+			message = "you can't eat a team mate" ;
 		}
 	}
-	return true;
+	return message;
 
 }
 
@@ -260,7 +259,7 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	if (mover->getName()[1] == 'P') {
 		((Pawn*)mover)->setIsFirstMove(false);
 		((Pawn*)mover)->checkAndExecutePawnPromotion(this);
-		movesSinceLastPawnMovementOrLastEating = 0;
+		movesSinceLastPawnMovementOrLastEating = -1;
 	}
 
 	else if (mover->getName()[1] == 'K') {
@@ -301,59 +300,29 @@ void Game::turn() {
 		Location*from = NULL;
 		ChessPiece* movingPiece = NULL;
 		bool eating = false;
-
-		do {
-			string input = getUserInput();
-			while (!checkUserInput(input))
-				input = getUserInput();
-			translateUserInput(input, &to, &from);//sending their addresses
-			if (getPieceInLocation(from))
-				movingPiece = getPieceInLocation(from);
-		} while (!movingPiece);
 		
-		if (isPossibleMove(movingPiece, to, from)) {
-			if (movingPiece->isLegalMove(to, this)) {
-				if (getPieceInLocation(to))
-					eating = true;
-				
-				Game* copyGame = new Game(this);
-				ChessPiece* copyMover = copyGame->getPieceInLocation(from);
-				copyGame->executeMove(copyMover, to, from, eating);
-				if (copyGame->checkForCheck(!isWhiteTurn)) {
-					delete copyGame;
-					delete copyMover;
-					cout << "that move puts your king in risk" << endl;
-				}
-				else {
-					copyGame->changeTurn();
-					if (copyGame->checkForCheck(isWhiteTurn)) {
-						cout << "check" << endl;
-						if (copyGame->checkForMate(isWhiteTurn)) {
-							cout << "check-mate!" << endl;
-							this->gameOver = true;
-						}
-					}
-					delete copyGame;
-					delete copyMover;
-					movesSinceLastPawnMovementOrLastEating++;
-					executeMove(movingPiece, to, from, eating);
-					changeTurn();
-
-				}
-			}
-			else if (checkAndExecuteIfCastling(to, from)) {
-				movesSinceLastPawnMovementOrLastEating++;
-				changeTurn();
-			}
-			else
-				cout << "not legal move" << endl;
+		string input = getUserInput();
+		while (!checkUserInput(input))
+			input = getUserInput();
+		translateUserInput(input, &to, &from);//sending their addresses
+		
+		string errorMessage = checkMove(to, from);
+		if (errorMessage != "") {
+			cout <<"error message: "<< errorMessage << endl;
 		}
+			else {
+				movingPiece = getPieceInLocation(from);
+				eating = getPieceInLocation(to);
+				executeMove(movingPiece, to, from, eating);
+				afterMove();
+			}
 		delete to;
 		delete from;
-		if (movingPiece)
-			delete movingPiece;
+		//if (movingPiece)
+		//	delete movingPiece;
 		//	checkEndGame();//mate, draw... probably mate should be depended on check
 	}
+	endGame();
 }
 
 bool Game::checkAndExecuteIfCastling(Location *to, Location*from) {
@@ -419,47 +388,70 @@ void Game::executeCastling(ChessPiece*king, ChessPiece*rook, Location *to, Locat
 	setSquareOnBoard(rooksDestination, rook);
 	setSquareOnBoard(from, NULL);
 	setSquareOnBoard(rookFromRow, rookFromColumn, NULL);
+
+	movesSinceLastPawnMovementOrLastEating++;
+	changeTurn();
 }
 
 
 bool Game::checkForCheck(bool whiteMover) {
 	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
 	Location* kingLocation = whiteMover ? blackKingLocation : whiteKingLocation;
-	for (int i = 0; i < piecesVector.size(); i++) {
+for (int i = 0; i < piecesVector.size(); i++) {
+	if (piecesVector[i]) {
 		if ((piecesVector[i])->isLegalMove(kingLocation, this)) {
+			cout << "check" << endl;
 			kingIsChecked = true;
 			return true;
 		}
 	}
-	kingIsChecked = false;
-	return false;
+}
+kingIsChecked = false;
+return false;
 }
 
 
 bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts everything on the way
-	vector<ChessPiece*> piecesVector = whiteMover ? whitePieces : blackPieces;
-	//add another copyboard
-	for (int p = 0; p < piecesVector.size(); p++) {//for each piece I will go to each spot and then check if there is a check()
-		for (int i = 0; i < boardWidth; i++) {
-			for (int j = 0; j < boardHeight; j++) {
+
+	vector<ChessPiece*> piecesVector;
+	Game* copyGame = NULL;
+
+	for (int p = 0; p < (whiteMover ? whitePieces.size() : blackPieces.size()); p++) {//for each piece I will go to each spot and then check if there is a check()
+		for (int i = 0; i < boardHeight; i++) {
+			for (int j = 0; j < boardWidth; j++) {
+				if (copyGame == NULL) {
+					copyGame = new Game(this);
+					piecesVector = whiteMover ? copyGame->whitePieces : copyGame->blackPieces;
+				}
 				ChessPiece * mover = piecesVector[p];
 				Location* to = new Location(i, j);
 				Location * from = new Location(mover->getRow(), mover->getColumn());
 				bool eating = false;
-				if (isPossibleMove(mover, to, from)) {
+				if (isPossibleMove(mover, to, from) == "") {
 					if (piecesVector[p]->isLegalMove(to, this)) {
 						if (getPieceInLocation(to))
 							eating = true;
-						executeMove(mover, to, from,eating);
-						if (!checkForCheck(whiteMover))
+						copyGame->executeMove(mover, to, from, eating);
+						copyGame->changeTurn();
+						if (!checkForCheck(whiteMover)) {
+							delete copyGame;
+							delete to;
+							delete from;
 							return false;
+						}
+						else
+							delete copyGame;
 					}
 				}
+				delete to;
+				delete from;
 			}
 		}
 	}
+	gameOver = true;
 	return true;
 }
+
 
 ChessPiece* Game::getPieceInLocation(Location* location) {
 	return board[location->getRow()][location->getColumn()];//now very needed. but how?
@@ -484,7 +476,7 @@ Game::Game(Game* baseGame) {
 	vector <ChessPiece*>temp(this->boardHeight, NULL);
 	vector< vector <ChessPiece*> > rows(this->boardWidth, temp);
 	this->board = rows;
-	
+
 	for (int i = 0; i < this->boardHeight; i++) {
 		for (int j = 0; j < this->boardWidth; j++) {
 			if (baseGame->board[i][j]) {
@@ -508,9 +500,27 @@ void Game::setKingLocation(ChessPiece*king) {
 }
 
 void Game::eat(ChessPiece* pieceBeingEaten) {
-	delete pieceBeingEaten;
-	movesSinceLastPawnMovementOrLastEating = 0;
+	
+	bool isBlack = pieceBeingEaten->getIsBlack();
+	int row = pieceBeingEaten->getRow();
+	int column = pieceBeingEaten->getColumn();
+	vector<ChessPiece*> piecesVector = isBlack ? blackPieces : whitePieces;
+	int placeInPiecesVector;
+
+	for (int i = 0; i <piecesVector.size(); i++){
+		if (piecesVector[i] == pieceBeingEaten) {
+			placeInPiecesVector = i;
+			break;
+		}
+	}
+
+	
+	board[row][column] = NULL;
+	(isBlack ? blackPieces[placeInPiecesVector] : whitePieces[placeInPiecesVector]) = NULL;
+delete pieceBeingEaten;
+	movesSinceLastPawnMovementOrLastEating = -1;
 }
+
 void Game::endGame() {
 	for (int i = 0; i < boardHeight; i++) {
 		for (int j = 0; j < boardWidth; j++) {
@@ -519,5 +529,102 @@ void Game::endGame() {
 	}
 	delete blackKingLocation;
 	delete whiteKingLocation;
+	cout << endl << "game over!" << endl;	
 }
 
+string Game::checkMove(Location * to, Location* from) {
+	string message="";
+	bool eating = false;
+	ChessPiece*movingPiece = getPieceInLocation(from);
+	message = isPossibleMove(movingPiece, to, from);
+	if (message != "") {
+		return message;
+	}
+	if (!movingPiece->isLegalMove(to, this)) {
+		if (checkAndExecuteIfCastling(to, from))//i dont like this. can be changed
+			message = "castled successfully";
+		else
+			message = "not legal move";
+	}
+	if (message != "")
+		return message;
+	message = checkMoveByCopying(to, from);
+	return message;
+}
+string Game::checkMoveByCopying(Location * to, Location * from) {
+	
+	string message = "";
+	bool eating = false;
+	if (getPieceInLocation(to))
+		eating = true;
+
+	Game* copyGame = new Game(this);
+	ChessPiece* copyMover = copyGame->getPieceInLocation(from);
+	copyGame->executeMove(copyMover, to, from, eating);
+	if (copyGame->checkForCheck(!isWhiteTurn)) {
+		delete copyGame;
+		//delete copyMover;
+		message = "that move puts your king in risk";
+	}
+	return message;
+}
+
+void Game::afterMove() {
+	changeTurn();
+	checkForCheck(isWhiteTurn);
+	checkForMate(isWhiteTurn);
+	movesSinceLastPawnMovementOrLastEating++;
+	compareAndSaveLastBoard();
+}
+
+void Game::compareAndSaveLastBoard() {
+	static bool firstTime = true;
+	if (firstTime) {
+		vector <ChessPiece*> temp(boardHeight, NULL);
+		vector < vector<ChessPiece*> > rows(boardWidth, temp);
+		lastBoard = rows;
+		firstTime = false;
+	}
+	if (boardsAreIdentical(board, lastBoard)) {
+		if (twoBoardRepitition == true)
+			gameOver = true;
+		else
+			twoBoardRepitition = true;
+	}
+	else {
+		lastBoard = copyBoard();
+		twoBoardRepitition = false;
+	}
+}
+
+bool Game::boardsAreIdentical(vector < vector<ChessPiece*> > board, vector < vector<ChessPiece*> > lastBoard) {
+	bool identical = true;
+	for (int i = 0; i < boardHeight&& identical; i++) {
+		for (int j = 0; j < boardWidth && identical; j++) {
+			if (board[i][j] && lastBoard[i][j]) {
+				if (board[i][j]->getName() != lastBoard[i][j]->getName())
+					identical = false;
+			}
+			else if (!board[i][j] && lastBoard[i][j] || board[i][j] && !lastBoard[i][j]) {
+				identical = false;
+			}
+		}
+	}
+	return identical;
+}
+
+vector < vector<ChessPiece*> > Game::copyBoard() {
+	vector < vector<ChessPiece*> > copyBoard;
+	
+	vector <ChessPiece*>temp(this->boardHeight, NULL);
+	vector< vector <ChessPiece*> > rows(this->boardWidth, temp);
+	copyBoard = rows;
+
+	for (int i = 0; i < this->boardHeight; i++) {
+		for (int j = 0; j < this->boardWidth; j++) {
+			if (this->board[i][j]) 
+				copyBoard[i][j] = this->board[i][j]->copy();
+		}
+	}
+	return copyBoard;
+}
