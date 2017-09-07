@@ -5,6 +5,7 @@
 #include <vector>
 #include "chessPiece.h"
 #include "location.h"
+#include "pawn.h"
 
 class ChessPiece;
 class Location;
@@ -28,6 +29,9 @@ class Game {
 	int movesSinceLastPawnMovementOrLastEating = 0;
 	vector <vector<ChessPiece*> > lastBoard;
 	bool twoBoardRepitition=false;
+	Location* enPassantLocation = NULL;
+	bool nextMoveIsCasteling = false;
+	bool nextMoveIsEnPassant = false;
 public:
 	Game();
 	Game(Game*);
@@ -40,7 +44,7 @@ public:
 	void print();
 	ChessPiece* getPieceInLocation(Location*);
 	ChessPiece* getPieceInLocation(int row, int column);
-	void executeMove(ChessPiece*, Location*, Location*, bool);
+	void executeMove(ChessPiece*, Location*, Location*, bool eating, bool realBoard);
 	string getUserInput();
 	bool checkUserInput(string &input);
 	void translateUserInput(string input, Location**, Location**); //findPlaceOnBoard
@@ -58,8 +62,13 @@ public:
 	string checkMove(Location*, Location*);
 	string checkMoveByCopying(Location*,Location*);
 	void afterMove();
-	void compareAndSaveLastBoard();
+	bool compareAndSaveLastBoardOrThreefoldRepitionEndGame();		
 	bool boardsAreIdentical(vector < vector<ChessPiece*> >, vector < vector<ChessPiece*> >);
 	vector < vector<ChessPiece*> > copyBoard();
+	Location* getEnPassantLocation();
+	void setEnPassantLocation(int row, int column);
+	void setEnPassantLocation();
+	void executeEnPassant(ChessPiece*, Location*);
+
 };
 #endif 

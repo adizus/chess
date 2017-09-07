@@ -24,7 +24,7 @@ bool Pawn::isLegalMove(Location* to, Game* game) {//well I believe this function
 
 	if (this->getIsBlack()) {
 		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
-			if (to->getRow() == this->getRow() + 1 || to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {		
+			if (to->getRow() == this->getRow() + 1 || to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {
 				legalMove = true;
 			}
 		}
@@ -61,9 +61,9 @@ bool Pawn::isLegalMove(Location* to, Game* game) {//well I believe this function
 }
 
 void Pawn::checkAndExecutePawnPromotion(Game* game) {
-	bool validInput=false;
+	bool validInput = false;
 	string input;
-	ChessPiece* newPiece=NULL;
+	ChessPiece* newPiece = NULL;
 	if (this->getRow() == game->getBoardHeight() || this->getRow() == 0) {
 		do {
 			cout << "please choose a promotion: queen, knight, rook or bishop" << endl;
@@ -97,18 +97,14 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 		}
 		if (newPiece) {
 			game->setSquareOnBoard(this->getRow(), this->getColumn(), newPiece);
-		
+
 			//delete this;//will this work .commiting suicide//I think it will work now because i deleted the copy. should not have mattered because it was a copy
 
 		}
-		
+
 	}
 }
 
 ChessPiece* Pawn::copy() {
 	return new Pawn(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
-
-
-
-

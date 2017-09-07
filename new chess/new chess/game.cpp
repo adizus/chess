@@ -249,7 +249,8 @@ void Game::print() {
 	}
 }
 
-void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eating) {
+void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eating, bool realboard=true) {
+	
 	if (eating) {
 		eat(getPieceInLocation(to));
 	}
@@ -258,7 +259,8 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	//this is not polymorphic
 	if (mover->getName()[1] == 'P') {
 		((Pawn*)mover)->setIsFirstMove(false);
-		((Pawn*)mover)->checkAndExecutePawnPromotion(this);
+		if(realboard)
+			((Pawn*)mover)->checkAndExecutePawnPromotion(this);
 		movesSinceLastPawnMovementOrLastEating = -1;
 	}
 
@@ -306,9 +308,9 @@ void Game::turn() {
 			input = getUserInput();
 		translateUserInput(input, &to, &from);//sending their addresses
 		
-		string errorMessage = checkMove(to, from);
-		if (errorMessage != "") {
-			cout <<"error message: "<< errorMessage << endl;
+		string message = checkMove(to, from);
+		if (message != "") {
+			cout << message << endl;
 		}
 			else {
 				movingPiece = getPieceInLocation(from);
@@ -565,7 +567,7 @@ string Game::checkMoveByCopying(Location * to, Location * from) {
 
 	Game* copyGame = new Game(this);
 	ChessPiece* copyMover = copyGame->getPieceInLocation(from);
-	copyGame->executeMove(copyMover, to, from, eating);
+	copyGame->executeMove(copyMover, to, from, eating, false);
 	if (copyGame->checkForCheck(!isWhiteTurn)) {
 		delete copyGame;
 		//delete copyMover;
@@ -576,6 +578,9 @@ string Game::checkMoveByCopying(Location * to, Location * from) {
 
 void Game::afterMove() {
 	bool noPossibleMoves = false;
+	Location* saveEnPassantLocation = NULL;
+	if(enPassantLocation)
+		saveEnPassantLocation = new Location(enPassantLocation->getRow(), enPassantLocation->getColumn());
 	if (checkForCheck(isWhiteTurn)) {
 		kingIsChecked = true;
 	}
@@ -597,24 +602,30 @@ void Game::afterMove() {
 	
 	changeTurn();
 	movesSinceLastPawnMovementOrLastEating++;
+
 	if (movesSinceLastPawnMovementOrLastEating >= 50) {
 		cout << "50 moves rule" << endl;
 		gameOver = true;
 	}
-	compareAndSaveLastBoard();
+	if (compareAndSaveLastBoardOrThreefoldRepitionEndGame()) {
+		cout << "Threefold Repition. game over" << endl;
+		gameOver = true;
+	}
+	enPassantLocation = saveEnPassantLocation;
 }
 
-void Game::compareAndSaveLastBoard() {
+bool Game::compareAndSaveLastBoardOrThreefoldRepitionEndGame() {
 	static bool firstTime = true;
 	if (firstTime) {
 		vector <ChessPiece*> temp(boardHeight, NULL);
 		vector < vector<ChessPiece*> > rows(boardWidth, temp);
 		lastBoard = rows;
 		firstTime = false;
+		return false;
 	}
 	if (boardsAreIdentical(board, lastBoard)) {
-		if (twoBoardRepitition == true)
-			gameOver = true;
+		if (twoBoardRepitition == true) 
+			return true;
 		else
 			twoBoardRepitition = true;
 	}
@@ -622,6 +633,7 @@ void Game::compareAndSaveLastBoard() {
 		lastBoard = copyBoard();
 		twoBoardRepitition = false;
 	}
+	return false;
 }
 
 bool Game::boardsAreIdentical(vector < vector<ChessPiece*> > board, vector < vector<ChessPiece*> > lastBoard) {
@@ -655,3 +667,25 @@ vector < vector<ChessPiece*> > Game::copyBoard() {
 	}
 	return copyBoard;
 }
+
+Location * Game::getEnPassantLocation() {
+	return enPassantLocation;
+}
+
+void Game::setEnPassantLocation(int row, int column) {
+	enPassantLocation = new Location(row, column);
+}
+void Game::setEnPassantLocation() {
+	delete enPassantLocation;
+	enPassantLocation = NULL;
+}
+void Game::executeEnPassant(ChessPiece* mover, Location*to) {
+	Location *from = new Location(mover->getRow(), mover->getColumn());
+	eat(getPieceInLocation(enPassantLocation));
+	setSquareOnBoard(to, mover);
+	setSquareOnBoard(from, NULL);
+	((Pawn*)mover)->setIsFirstMove(false);
+	movesSinceLastPawnMovementOrLastEating = -1;
+	delete from;
+}
+	

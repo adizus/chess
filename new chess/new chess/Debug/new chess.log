@@ -1,8 +1,161 @@
-﻿  game.cpp
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(132): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(379): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(404): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(420): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\game.cpp(515): warning C4018: '<': signed/unsigned mismatch
-  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.exe
-  new chess.vcxproj -> C:\Users\user\Desktop\ADI\c++\chess repository\chess\new chess\Debug\new chess.pdb (Partial PDB)
+﻿  rook.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  queen.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  pawn.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(20): error C2511: 'bool Pawn::isLegalMove(Location *,Game *)': overloaded member function not found in 'Pawn'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): note: see declaration of 'Pawn'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(25): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(25): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(26): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(26): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(27): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(27): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(27): error C2227: left of '->getIsFirstMove' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(32): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(32): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(33): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(33): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(43): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(43): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(44): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(44): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(44): error C2227: left of '->getIsFirstMove' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(49): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(49): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(50): error C2671: 'Pawn::isLegalMove': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(50): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(63): error C2511: 'void Pawn::checkAndExecutePawnPromotion(Game *)': overloaded member function not found in 'Pawn'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): note: see declaration of 'Pawn'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(67): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(67): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(73): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(81): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(81): error C2227: left of '->getName' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): error C2664: 'Queen::Queen(Queen &&)': cannot convert argument 1 from 'const char *' to 'const Queen &'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): note: Reason: cannot convert from 'const char *' to 'const Queen'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(84): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): error C2664: 'Rook::Rook(Rook &&)': cannot convert argument 1 from 'const char *' to 'const Rook &'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): note: Reason: cannot convert from 'const char *' to 'const Rook'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(87): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): error C2664: 'Bishop::Bishop(Bishop &&)': cannot convert argument 1 from 'const char *' to 'const Bishop &'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): note: Reason: cannot convert from 'const char *' to 'const Bishop'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(90): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): error C2664: 'Knight::Knight(Knight &&)': cannot convert argument 1 from 'const char *' to 'const Knight &'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): note: Reason: cannot convert from 'const char *' to 'const Knight'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(93): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(99): error C2671: 'Pawn::checkAndExecutePawnPromotion': static member functions do not have 'this' pointers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(99): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(99): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(108): error C2039: 'copy': is not a member of 'Pawn'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): note: see declaration of 'Pawn'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2227: left of '->getName' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2227: left of '->getIsBlack' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2227: left of '->getRow' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2227: left of '->getColumn' must point to class/struct/union/generic type
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): error C2440: 'return': cannot convert from 'Pawn *' to 'ChessPiece *'
+  c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.cpp(109): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+  knight.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  king.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  chessPiece.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  bishop.cpp
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(13): error C2504: 'ChessPiece': base class undefined
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2061: syntax error: identifier 'string'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(19): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(22): error C2061: syntax error: identifier 'Game'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2143: syntax error: missing ';' before '*'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(23): error C2238: unexpected token(s) preceding ';'
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'name': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'isBlack': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'row': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2065: 'column': undeclared identifier
+c:\users\user\desktop\adi\c++\chess repository\chess\new chess\new chess\pawn.h(18): error C2614: 'Pawn': illegal member initialization: 'ChessPiece' is not a base or member
+  Generating Code...
