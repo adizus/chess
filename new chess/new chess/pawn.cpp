@@ -17,54 +17,58 @@ void Pawn::setIsFirstMove(bool isFirstMove) {
 	this->isFirstMove = isFirstMove;
 }
 
-bool Pawn::isLegalMove(Location* to, Game* game) {//well I believe this function works but I don't think it is very readable
+
+bool Pawn::isLegalMove(Location* to, Game* game) {
 	bool legalMove = false;
 
-	//need to add make sure nobody block first double move
+	if (game->getEnPassantLocation())
+		if (!(*to == *(game->getEnPassantLocation())))//if this move is not going to use the en passant, it will not be saved to the next round
+			game->setEnPassantLocation();//set to null
 
 	if (this->getIsBlack()) {
 		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
-			if (to->getRow() == this->getRow() + 1 || to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {
+			if (to->getRow() == this->getRow() + 1)
 				legalMove = true;
-			}
-		}
-		else if (game->getPieceInLocation(to)) {
-			if (to->getRow() == this->getRow() + 1) {
-				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) {
-					if (!game->getPieceInLocation(to)->getIsBlack()) {
-						legalMove = true;
-					}
+			else if (to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {
+				if (game->getPieceInLocation(this->getRow() + 1, this->getColumn()) == NULL) {
+					legalMove = true;
+					game->setEnPassantLocation(this->getRow() + 1, this->getColumn());
 				}
 			}
 		}
+		else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
+			if (to->getRow() == this->getRow() + 1)
+				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1)
+					legalMove = true;
 	}
 
+	//if piece is white:
 	else {
 		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
-			if (to->getRow() == this->getRow() - 1 || to->getRow() == this->getRow() - 2 && this->getIsFirstMove()) {
+			if (to->getRow() == this->getRow() - 1)
 				legalMove = true;
-			}
-		}
-		else if (game->getPieceInLocation(to)) {
-			if (to->getRow() == this->getRow() - 1) {
-				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) {
-					if (game->getPieceInLocation(to)->getIsBlack()) {
-						legalMove = true;
-					}
+			if (to->getRow() == this->getRow() - 2 && this->getIsFirstMove()) {
+				if (game->getPieceInLocation(this->getRow() - 1, this->getColumn()) == NULL) {
+					legalMove = true;
+					game->setEnPassantLocation(this->getRow() - 1, this->getColumn());
 				}
 			}
 		}
+		else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
+			if (to->getRow() == this->getRow() - 1)
+				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) 
+					legalMove = true;
 	}
-
-
 	return legalMove;
 }
+
+
 
 void Pawn::checkAndExecutePawnPromotion(Game* game) {
 	bool validInput = false;
 	string input;
 	ChessPiece* newPiece = NULL;
-	if (this->getRow() == game->getBoardHeight() || this->getRow() == 0) {
+	if (this->getRow() == game->getBoardHeight() - 1 || this->getRow() == 0) {
 		do {
 			cout << "please choose a promotion: queen, knight, rook or bishop" << endl;
 			cin >> input;
@@ -79,19 +83,25 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 		} while (!validInput);
 
 		char colorChar = this->getName()[0];
+		string name;
 		switch (input[0]) {
 		case 'q':
-			newPiece = new Queen(colorChar + "Q", this->getIsBlack(), this->getRow(), this->getColumn());
+			name = colorChar + (string)"Q";
+			newPiece = new Queen(name, this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		case 'r':
-			newPiece = new Rook(colorChar + "R", this->getIsBlack(), this->getRow(), this->getColumn());
-			break;
-		case 'b':
-			newPiece = new Bishop(colorChar + "B", this->getIsBlack(), this->getRow(), this->getColumn());
+			name = colorChar + (string)"R";
+			newPiece = new Rook(name, this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
 		case 'k':
-			newPiece = new Knight(colorChar + "N", this->getIsBlack(), this->getRow(), this->getColumn());
+			name = colorChar + (string)"N";
+			newPiece = new Knight(name, this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
+		case 'b':
+			name = colorChar + (string)"B";
+			newPiece = new Bishop(name, this->getIsBlack(), this->getRow(), this->getColumn());
+			break;
+		
 		default:
 			cout << "never supposed to get here. promotion";
 		}
@@ -108,3 +118,5 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 ChessPiece* Pawn::copy() {
 	return new Pawn(this->getName(), this->getIsBlack(), this->getRow(), this->getColumn());
 }
+
+
