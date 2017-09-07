@@ -125,7 +125,7 @@ string Game::getUserInput() {
 
 bool Game::checkUserInput(string &input) {
 	if (input.size() != 4) {
-		cout << "input should have 4 characters";
+		cout << "input should have 4 characters" << endl;
 		return false;
 	}
 	char c;
@@ -418,7 +418,7 @@ bool Game::checkForCheck(bool whiteMover) {
 }
 
 
-bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts everything on the way
+bool Game::checkForMate(bool whiteMover) {
 
 	vector<ChessPiece*> piecesVector;
 	Game* copyGame = NULL;
@@ -430,37 +430,40 @@ bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts
 					copyGame = new Game(this);
 					piecesVector = whiteMover ? copyGame->whitePieces : copyGame->blackPieces;
 				}
-				ChessPiece * mover = piecesVector[p];
-				Location* to = new Location(i, j);
-				Location * from = new Location(mover->getRow(), mover->getColumn());
-				bool eating = false;
-				if (isPossibleMove(mover, to, from) == "") {
-					if (piecesVector[p]->isLegalMove(to, this)) {
-						if (getPieceInLocation(to))
-							eating = true;
-						copyGame->executeMove(mover, to, from, eating,false);
-						copyGame->changeTurn();
-						if (!checkForCheck(whiteMover)) {
-							delete copyGame;
-							copyGame = NULL;
-							delete to;
-							delete from;
-							return false;
-						}
-						else {
-							delete copyGame;
-							copyGame = NULL;
+				if (p < piecesVector.size()) {
+					ChessPiece * mover = piecesVector[p];
+					Location* to = new Location(i, j);
+					Location * from = new Location(mover->getRow(), mover->getColumn());
+					bool eating = false;
+					if (isPossibleMove(mover, to, from) == "") {
+						if (piecesVector[p]->isLegalMove(to, this)) {
+							if (getPieceInLocation(to))
+								eating = true;
+							copyGame->executeMove(mover, to, from, eating, false);
+							copyGame->changeTurn();
+							if (!checkForCheck(whiteMover)) {
+								delete copyGame;
+								copyGame = NULL;
+								delete to;
+								delete from;
+								return false;
+							}
+							else {
+								delete copyGame;
+								copyGame = NULL;
+							}
 						}
 					}
+					delete to;
+					delete from;
 				}
-				delete to;
-				delete from;
 			}
 		}
 	}
 	gameOver = true;
 	return true;
 }
+
 
 
 
@@ -538,6 +541,7 @@ void Game::endGame() {
 	}
 	delete blackKingLocation;
 	delete whiteKingLocation;
+	print();
 	cout << endl << "game over!" << endl;	
 }
 
@@ -588,6 +592,10 @@ void Game::afterMove() {
 	}
 	else
 		kingIsChecked = false;
+	
+	changeTurn();
+	movesSinceLastPawnMovementOrLastEating++;
+
 	if (checkForMate(isWhiteTurn)) {
 		noPossibleMoves = true;
 	}
@@ -602,9 +610,8 @@ void Game::afterMove() {
 	if (!noPossibleMoves&&kingIsChecked)
 		cout << "check!" << endl;
 	
-	changeTurn();
-	movesSinceLastPawnMovementOrLastEating++;
-
+	
+	
 	if (movesSinceLastPawnMovementOrLastEating >= 50) {
 		cout << "50 moves rule" << endl;
 		gameOver = true;
