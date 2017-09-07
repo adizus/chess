@@ -98,14 +98,14 @@ void Game::buildStandardBoard() {
 string Game::isPossibleMove(ChessPiece*piece, Location* to, Location* from) {
 	string message = "";
 	bool legalMove = true;
-	if (!getPieceInLocation(from)) {
+	if (getPieceInLocation(from)==NULL) {
 		message ="there is no piece in that square";
 	}
-	if (getPieceInLocation(from)->getIsBlack() && isWhiteTurn || !getPieceInLocation(from)->getIsBlack() && !isWhiteTurn) {
+	else if (getPieceInLocation(from)->getIsBlack() && isWhiteTurn || !getPieceInLocation(from)->getIsBlack() && !isWhiteTurn) {
 		message = "it is not your turn";
 		
 	}
-	if (getPieceInLocation(to)) {
+	else if (getPieceInLocation(to)) {
 		if (getPieceInLocation(to)->getIsBlack() == piece->getIsBlack()) {//is endPlace occupied by a teammate
 			message = "you can't eat a team mate" ;
 		}
@@ -128,9 +128,9 @@ bool Game::checkUserInput(string &input) {
 		cout << "input should have 4 characters";
 		return false;
 	}
-
+	char c;
 	for (int i = 0; i < input.size(); i++) { //maybe size_t instead of int.check why, and what is the difference
-		tolower(input[i]);
+		input[i]=tolower(input[i]);
 	}
 
 
@@ -250,7 +250,11 @@ void Game::print() {
 }
 
 void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eating, bool realboard=true) {
-	
+	if ( nextMoveIsEnPassant) {
+		executeEnPassant(mover, to, from);
+		return;
+	}
+
 	if (eating) {
 		eat(getPieceInLocation(to));
 	}
@@ -434,7 +438,7 @@ bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts
 					if (piecesVector[p]->isLegalMove(to, this)) {
 						if (getPieceInLocation(to))
 							eating = true;
-						copyGame->executeMove(mover, to, from, eating);
+						copyGame->executeMove(mover, to, from, eating,false);
 						copyGame->changeTurn();
 						if (!checkForCheck(whiteMover)) {
 							delete copyGame;
@@ -461,7 +465,7 @@ bool Game::checkForMate(bool whiteMover) {//so the algorithem works but it couts
 
 
 ChessPiece* Game::getPieceInLocation(Location* location) {
-	return board[location->getRow()][location->getColumn()];//now very needed. but how?
+	return board[location->getRow()][location->getColumn()];
 }
 
 ChessPiece* Game::getPieceInLocation(int row, int column) {
@@ -520,11 +524,9 @@ void Game::eat(ChessPiece* pieceBeingEaten) {
 			break;
 		}
 	}
-
-	
 	board[row][column] = NULL;
 	(isBlack ? blackPieces[placeInPiecesVector] : whitePieces[placeInPiecesVector]) = NULL;
-delete pieceBeingEaten;
+	delete pieceBeingEaten;
 	movesSinceLastPawnMovementOrLastEating = -1;
 }
 
@@ -616,6 +618,9 @@ void Game::afterMove() {
 
 bool Game::compareAndSaveLastBoardOrThreefoldRepitionEndGame() {
 	static bool firstTime = true;
+	static int numOfMoves = 0;
+	numOfMoves++;
+
 	if (firstTime) {
 		vector <ChessPiece*> temp(boardHeight, NULL);
 		vector < vector<ChessPiece*> > rows(boardWidth, temp);
@@ -623,15 +628,17 @@ bool Game::compareAndSaveLastBoardOrThreefoldRepitionEndGame() {
 		firstTime = false;
 		return false;
 	}
-	if (boardsAreIdentical(board, lastBoard)) {
-		if (twoBoardRepitition == true) 
-			return true;
-		else
-			twoBoardRepitition = true;
-	}
-	else {
-		lastBoard = copyBoard();
-		twoBoardRepitition = false;
+	if (numOfMoves % 4 == 0) {
+		if (boardsAreIdentical(board, lastBoard)) {
+			if (twoBoardRepitition == true)
+				return true;
+			else
+				twoBoardRepitition = true;
+		}
+		else {
+			lastBoard = copyBoard();
+			twoBoardRepitition = false;
+		}
 	}
 	return false;
 }
@@ -679,13 +686,31 @@ void Game::setEnPassantLocation() {
 	delete enPassantLocation;
 	enPassantLocation = NULL;
 }
-void Game::executeEnPassant(ChessPiece* mover, Location*to) {
-	Location *from = new Location(mover->getRow(), mover->getColumn());
-	eat(getPieceInLocation(enPassantLocation));
+void Game::executeEnPassant(ChessPiece* mover, Location*to,Location * from) {
+	eat(lastPawnToMove);
 	setSquareOnBoard(to, mover);
 	setSquareOnBoard(from, NULL);
-	((Pawn*)mover)->setIsFirstMove(false);
-	movesSinceLastPawnMovementOrLastEating = -1;
-	delete from;
+}
+
+void Game::setLastPawnToMove(ChessPiece* pawn) {
+	lastPawnToMove = pawn;
+}
+
+ChessPiece* Game::getLastPawnToMove() {
+	return lastPawnToMove;
 }
 	
+void Game::setNextMoveIsEnPassant(bool nextMoveIsEnPassant) {
+	this->nextMoveIsEnPassant = nextMoveIsEnPassant;
+}
+
+bool Game::getNextMoveIsEnPassant() {
+	return nextMoveIsEnPassant;
+}
+
+vector<ChessPiece*> Game::getPiecesVector(bool askForBlackPieces) {
+	return askForBlackPieces ? blackPieces : whitePieces;
+}
+void Game::setPiecesVector(bool setBlackPieces, int index,  ChessPiece* piece) {
+	setBlackPieces ? blackPieces[index] : whitePieces[index] = piece;
+}

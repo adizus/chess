@@ -4,9 +4,6 @@
 #include "chessPiece.h"
 #include "location.h"
 #include <vector>
-    
-	
-	
 	
 	
 

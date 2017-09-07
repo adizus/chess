@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "chesspiece.h"
 
-ChessPiece::ChessPiece(string name,bool isBlack, int row,int column ) {
+ChessPiece::ChessPiece(string name, bool isBlack, int row, int column) {
 	this->isBlack = isBlack;
 	this->name = name;
 	this->row = row;
@@ -24,12 +24,9 @@ int ChessPiece::getColumn() {
 int ChessPiece::getRow() {
 	return row;
 }
-
-
 void ChessPiece::setColumn(int column) {
 	this->column = column;
 }
-
 void ChessPiece::setRow(int row) {
 	this->row = row;
 }

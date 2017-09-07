@@ -5,7 +5,8 @@
 #include <vector>
 #include "chessPiece.h"
 #include "location.h"
-#include "pawn.h"
+
+
 
 class ChessPiece;
 class Location;
@@ -32,6 +33,7 @@ class Game {
 	Location* enPassantLocation = NULL;
 	bool nextMoveIsCasteling = false;
 	bool nextMoveIsEnPassant = false;
+	ChessPiece *lastPawnToMove=NULL;
 public:
 	Game();
 	Game(Game*);
@@ -68,7 +70,12 @@ public:
 	Location* getEnPassantLocation();
 	void setEnPassantLocation(int row, int column);
 	void setEnPassantLocation();
-	void executeEnPassant(ChessPiece*, Location*);
-
+	void executeEnPassant(ChessPiece*, Location*,Location*);
+	void setLastPawnToMove(ChessPiece*);
+	ChessPiece* getLastPawnToMove();
+	void setNextMoveIsEnPassant(bool);
+	bool getNextMoveIsEnPassant();
+	vector<ChessPiece*> getPiecesVector(bool);
+	void setPiecesVector(bool,int, ChessPiece*);
 };
 #endif 

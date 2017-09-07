@@ -21,46 +21,58 @@ void Pawn::setIsFirstMove(bool isFirstMove) {
 bool Pawn::isLegalMove(Location* to, Game* game) {
 	bool legalMove = false;
 
-	if (game->getEnPassantLocation())
-		if (!(*to == *(game->getEnPassantLocation())))//if this move is not going to use the en passant, it will not be saved to the next round
-			game->setEnPassantLocation();//set to null
-
-	if (this->getIsBlack()) {
-		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
-			if (to->getRow() == this->getRow() + 1)
-				legalMove = true;
-			else if (to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {
-				if (game->getPieceInLocation(this->getRow() + 1, this->getColumn()) == NULL) {
-					legalMove = true;
-					game->setEnPassantLocation(this->getRow() + 1, this->getColumn());
-				}
-			}
-		}
-		else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
-			if (to->getRow() == this->getRow() + 1)
-				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1)
-					legalMove = true;
-	}
-
-	//if piece is white:
-	else {
-		if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
-			if (to->getRow() == this->getRow() - 1)
-				legalMove = true;
-			if (to->getRow() == this->getRow() - 2 && this->getIsFirstMove()) {
-				if (game->getPieceInLocation(this->getRow() - 1, this->getColumn()) == NULL) {
-					legalMove = true;
-					game->setEnPassantLocation(this->getRow() - 1, this->getColumn());
-				}
-			}
-		}
-		else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
-			if (to->getRow() == this->getRow() - 1)
-				if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) 
-					legalMove = true;
-	}
-	return legalMove;
+if (game->getEnPassantLocation())
+if (!(*to == *(game->getEnPassantLocation()))) {//if this move is not going to use the en passant, it will not be saved to the next round
+	game->setEnPassantLocation();//set to null
+	game->setNextMoveIsEnPassant(false);
 }
+
+if (this->getIsBlack()) {
+	if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
+		if (to->getRow() == this->getRow() + 1)
+			legalMove = true;
+		else if (to->getRow() == this->getRow() + 2 && this->getIsFirstMove()) {
+			if (game->getPieceInLocation(this->getRow() + 1, this->getColumn()) == NULL) {
+				legalMove = true;
+				game->setEnPassantLocation(this->getRow() + 1, this->getColumn());
+				game->setLastPawnToMove(this);
+			}
+		}
+	}
+	else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
+		if (to->getRow() == this->getRow() + 1)
+			if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) {
+				legalMove = true;
+				if (game->getEnPassantLocation() != NULL)
+					game->setNextMoveIsEnPassant(true);
+			}
+}
+
+//if piece is white:
+else {
+	if (!game->getPieceInLocation(to) && to->getColumn() == this->getColumn()) {
+		if (to->getRow() == this->getRow() - 1)
+			legalMove = true;
+		if (to->getRow() == this->getRow() - 2 && this->getIsFirstMove()) {
+			if (game->getPieceInLocation(this->getRow() - 1, this->getColumn()) == NULL) {
+				legalMove = true;
+				game->setEnPassantLocation(this->getRow() - 1, this->getColumn());
+				game->setLastPawnToMove(this);
+
+			}
+		}
+	}
+	else if (game->getPieceInLocation(to) || game->getEnPassantLocation() != NULL)
+		if (to->getRow() == this->getRow() - 1)
+			if (to->getColumn() == this->getColumn() + 1 || to->getColumn() == this->getColumn() - 1) {
+				legalMove = true;
+				if (game->getEnPassantLocation() != NULL)
+					game->setNextMoveIsEnPassant(true);
+			}
+}
+return legalMove;
+}
+
 
 
 
@@ -74,8 +86,8 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 			cin >> input;
 			trim(input);
 
-			for (int i = 0; i < input.size(); i++) {//make sure this works
-				tolower(input[i]);
+			for (int i = 0; i < input.size(); i++) {
+				input[i] = tolower(input[i]);
 			}
 			if (input == "queen" || input == "knight" || input == "rook" || input == "bishop")
 				validInput = true;
@@ -101,17 +113,21 @@ void Pawn::checkAndExecutePawnPromotion(Game* game) {
 			name = colorChar + (string)"B";
 			newPiece = new Bishop(name, this->getIsBlack(), this->getRow(), this->getColumn());
 			break;
-		
+
 		default:
 			cout << "never supposed to get here. promotion";
 		}
+
 		if (newPiece) {
 			game->setSquareOnBoard(this->getRow(), this->getColumn(), newPiece);
 
-			//delete this;//will this work .commiting suicide//I think it will work now because i deleted the copy. should not have mattered because it was a copy
-
+			vector<ChessPiece*> piecesVector = game->getPiecesVector(this->getIsBlack());
+			for (int i = 0; i < piecesVector.size(); i++) {
+				if (this == piecesVector[i])
+					game->setPiecesVector(this->getIsBlack(), i, newPiece);
+			}
+			delete this;
 		}
-
 	}
 }
 
