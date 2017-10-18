@@ -6,12 +6,9 @@
 #include "chessPiece.h"
 #include "location.h"
 
-
-
 class ChessPiece;
 class Location;
 using namespace std;
-extern int objectCounter;
 
 class Game {
 	bool isWhiteTurn = true;
@@ -21,19 +18,20 @@ class Game {
 	int boardWidth = 8;
 	int boardHeight = 8;
 	vector<ChessPiece*> blackPieces;
-	vector<ChessPiece*> whitePieces;
-	//ChessPiece** blackPieces;
-	//ChessPiece** whitePieces;
+	vector<ChessPiece*> whitePieces;	
 	Location* blackKingLocation;
 	Location* whiteKingLocation;
+	
 	bool kingIsChecked;
 	int movesSinceLastPawnMovementOrLastEating = 0;
 	vector <vector<ChessPiece*> > lastBoard;
 	bool twoBoardRepitition=false;
+	
 	Location* enPassantLocation = NULL;
 	bool nextMoveIsCasteling = false;
 	bool nextMoveIsEnPassant = false;
 	ChessPiece *lastPawnToMove=NULL;
+	
 public:
 	Game();
 	Game(Game*);

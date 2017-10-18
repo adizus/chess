@@ -6,7 +6,6 @@ ChessPiece::ChessPiece(string name, bool isBlack, int row, int column) {
 	this->name = name;
 	this->row = row;
 	this->column = column;
-	objectCounter++;
 }
 
 

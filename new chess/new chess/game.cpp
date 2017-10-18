@@ -1,8 +1,10 @@
 #include "stdafx.h"
+
 #include <string>
 #include <algorithm>
 #include <vector>
 #include <iostream>
+
 #include "game.h"
 #include "chessPiece.h"
 #include "location.h"
@@ -37,7 +39,6 @@ void Game::buildStandardBoard() {
 
 	vector <ChessPiece*> pieces(boardWidth * 2, NULL);
 	whitePieces = blackPieces = pieces;
-	//seems like there is a problem with pieces or something
 	for (int i = 0; i < boardWidth; i++) {
 		board[1][i] = new Pawn("BP", true, 1, i);
 		blackPieces[i] = board[1][i];
@@ -45,7 +46,7 @@ void Game::buildStandardBoard() {
 		board[6][i] = new Pawn("WP", false, 6, i);
 		whitePieces[i] = board[6][i];
 
-		switch (i) {//this is hard coded
+		switch (i) {//this is hard coded. writing it nicely is a lot better! this is unreadable
 		case 0:
 			board[0][i] = new Rook("BR", true, 0, i);
 			blackPieces[i + boardWidth] = board[0][i];
@@ -77,7 +78,7 @@ void Game::buildStandardBoard() {
 			whitePieces[i + 3 + boardWidth] = board[7][i + 3];
 			break;
 		case 3:
-			board[0][i] = new Queen("BQ", true, 0, i);//make sure I didn't mix up king/queen places
+			board[0][i] = new Queen("BQ", true, 0, i);
 			blackPieces[i + boardWidth] = board[0][i];
 			board[7][i] = new Queen("WQ", false, 7, i);
 			whitePieces[i + boardWidth] = board[7][i];
@@ -106,12 +107,11 @@ string Game::isPossibleMove(ChessPiece*piece, Location* to, Location* from) {
 		
 	}
 	else if (getPieceInLocation(to)) {
-		if (getPieceInLocation(to)->getIsBlack() == piece->getIsBlack()) {//is endPlace occupied by a teammate
+		if (getPieceInLocation(to)->getIsBlack() == piece->getIsBlack()) {//is endPlace occupied by a team mate
 			message = "you can't eat a team mate" ;
 		}
 	}
 	return message;
-
 }
 
 
@@ -129,7 +129,7 @@ bool Game::checkUserInput(string &input) {
 		return false;
 	}
 	char c;
-	for (int i = 0; i < input.size(); i++) { //maybe size_t instead of int.check why, and what is the difference
+	for (int i = 0; i < input.size(); i++) { //maybe size_t (unsigned int) instead of int. this is because that is how input.size returns  
 		input[i]=tolower(input[i]);
 	}
 
@@ -260,7 +260,7 @@ void Game::executeMove(ChessPiece* mover, Location*to, Location*from, bool eatin
 	}
 	setSquareOnBoard(to, mover);
 	setSquareOnBoard(from, NULL);
-	//this is not polymorphic
+	//this is not polymorphic. could have made move a abstract function and add this part in the corresponding piece
 	if (mover->getName()[1] == 'P') {
 		((Pawn*)mover)->setIsFirstMove(false);
 		if(realboard)
@@ -324,9 +324,6 @@ void Game::turn() {
 			}
 		delete to;
 		delete from;
-		//if (movingPiece)
-		//	delete movingPiece;
-		//	checkEndGame();//mate, draw... probably mate should be depended on check
 	}
 	endGame();
 }
@@ -536,7 +533,7 @@ void Game::eat(ChessPiece* pieceBeingEaten) {
 void Game::endGame() {
 	for (int i = 0; i < boardHeight; i++) {
 		for (int j = 0; j < boardWidth; j++) {
-			delete board[i][j];//need to check if ?
+			delete board[i][j];
 		}
 	}
 	delete blackKingLocation;
@@ -554,7 +551,7 @@ string Game::checkMove(Location * to, Location* from) {
 		return message;
 	}
 	if (!movingPiece->isLegalMove(to, this)) {
-		if (checkAndExecuteIfCastling(to, from))//i dont like this. can be changed
+		if (checkAndExecuteIfCastling(to, from))//I don't like this. it is different jobs for the same function. can be changed 
 			message = "castled successfully";
 		else
 			message = "not legal move";
@@ -575,8 +572,7 @@ string Game::checkMoveByCopying(Location * to, Location * from) {
 	ChessPiece* copyMover = copyGame->getPieceInLocation(from);
 	copyGame->executeMove(copyMover, to, from, eating, false);
 	if (copyGame->checkForCheck(!isWhiteTurn)) {
-		delete copyGame;
-		//delete copyMover;
+		delete copyGame;;
 		message = "that move puts your king in risk";
 	}
 	return message;
@@ -617,7 +613,7 @@ void Game::afterMove() {
 		gameOver = true;
 	}
 	if (compareAndSaveLastBoardOrThreefoldRepitionEndGame()) {
-		cout << "Threefold Repition. game over" << endl;
+		cout << "Threefold Repitition. game over" << endl;
 		gameOver = true;
 	}
 	enPassantLocation = saveEnPassantLocation;
